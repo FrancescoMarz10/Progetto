@@ -1,0 +1,262 @@
+body{
+	display:flex;
+	flex-direction:column;
+
+}
+#logo{
+	display: inline-block;
+	width:17%;
+	vertical-align:top;
+	text-align:left;
+	margin:1%;
+}
+
+
+#header{
+	position:relative;
+	display: inline-block;
+    width: 100%;
+   
+}
+
+#dipinfo{
+	display: inline-block;
+	width:55%;
+	vertical-align:top;
+	text-align:center;
+	margin:3%;
+	margin-top:3.5%;
+}
+
+#dipinfo2{
+	display: inline-block;
+	width:55%;
+	vertical-align:top;
+	text-align:right;
+	margin:3%;
+	margin-top:3.5%;
+	margin-left:20%;
+}
+
+
+#bar{
+	z-index:999;
+	position:sticky;
+	top:0;
+	position:-webkit-sticky;
+	width: 100%;
+	background-color: #008b8b;
+	
+}
+
+.elebar{
+	background-color: #008b8b;
+	width: 33.3%;
+	height: 100%;
+	color:white;
+	text-align: center;
+	float:left;	
+	font-family:"Bombardier";
+}
+
+.elebar:hover{
+ background: #0095cd;
+ background: -webkit-gradient(linear, left top, left bottom, from(#008b8b), to(#2f4f4f));
+ background: -webkit-linear-gradient(top,  #008b8b,  #2f4f4f);
+ background: -moz-linear-gradient(top,  #008b8b,  #2f4f4f);
+ background: -ms-linear-gradient(top,  #008b8b,  #2f4f4f);
+ background: -o-linear-gradient(top,  #008b8b,  #2f4f4f);
+ background: linear-gradient(top,  #008b8b,  #2f4f4f);}
+
+.elebar p{
+	size:30px;
+}
+
+#login{
+ display: inline-block;
+ width:10%;
+ border-radius:6px;
+ text-align:right;
+ margin:3%;
+ margin-top:4%;
+ outline: none;
+ cursor: pointer;
+ text-align: center;
+ text-decoration: none;
+ font-family:"Bombardier";
+ color: #fff;
+ padding: 10px 20px;
+ border: solid 1px #0076a3;
+ background:#008b8b ;
+   
+}
+
+#login:hover{
+	background-color: orange;
+	border:none;
+	color:black;
+}
+
+
+
+.bodyDiv{
+	width:46%;
+	margin:2%;
+	height:320px;
+	background-color:#008b8b ;
+	float:left;
+	border-radius: 5px;
+	
+ background: #0095cd;
+ background: -webkit-gradient(linear, left top, left bottom, from(#008b8b), to(#2f4f4f));
+ background: -webkit-linear-gradient(top,  #008b8b,  #2f4f4f);
+ background: -moz-linear-gradient(top,  #008b8b,  #2f4f4f);
+ background: -ms-linear-gradient(top,  #008b8b,  #2f4f4f);
+ background: -o-linear-gradient(top,  #008b8b,  #2f4f4f);
+ background: linear-gradient(top,  #008b8b,  #2f4f4f);
+
+}
+
+.containerBody{
+	position:relative;
+	display:inline-block;
+}
+
+#divStudente{
+	width: 60%;
+	margin-left:18%;
+	margin-top:7%;
+	position:relative;
+	text-align:center;
+	border-radius:5px;
+
+	opacity:0.85;
+
+    padding: 10px;
+    -moz-box-shadow:5px 5px 2px 2px #333333;
+    -webkit-box-shadow:5px 5px 2px 2px #333333;
+    box-shadow:5px 5px 2px 2px #333333;
+     font-family:"Bombardier";
+   
+    background: #0095cd;
+ background: -webkit-gradient(linear, left top, left bottom, from(#F5F5F5), to(#FFFFFF));
+ background: -webkit-linear-gradient(top,  #F5F5F5,  #FFFFFF);
+ background: -moz-linear-gradient(top,  #F5F5F5,  #FFFFFF);
+ background: -ms-linear-gradient(top,  #F5F5F5,  #FFFFFF);
+ background: -o-linear-gradient(top,  #F5F5F5,  #FFFFFF);
+ background: linear-gradient(top,  #F5F5F5,  #FFFFFF);}
+	
+	
+}
+
+
+
+.iscri {
+  display:flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  height: 100vh;
+  	font-family:"Bombardier";
+ 
+  div{
+    flex: 1 0 40vw;
+    text-align: center;
+  }
+}
+
+.btn{
+  font-family:"Bombardier";
+  
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #333;
+  display: block;
+  margin: 5% auto;
+  
+ max-width: 30%;
+  text-align:center;
+  padding: 10px;
+  text-decoration: none;
+  background-color:white;
+  transition: all .9s ease;
+}
+
+
+
+.sinistra .btn:hover{
+  box-shadow: 20vw 0 0 orange inset;
+}
+
+#freccia{
+	margin-top:-2px;
+	float:right;
+	width: 12%;
+	height: 16%;
+}
+
+
+#hr{
+	width:100%;
+	color:#2f4f4f;
+}
+
+
+#logoInfo{
+	width: 50%;
+	height: 10%;
+}
+
+#footer {
+	position:relative;
+	display: inline-block;
+    width: 100%;
+    font-family:"Bombardier";
+	color:#2f4f4f;
+	text-align:center;
+
+	
+   
+}
+
+#foot1 {
+	display: inline-block;
+	width:50%;
+	vertical-align:top;
+	text-align:left;
+	
+}
+#foot2 {
+	display:inline-block;
+	vertical-align:top;
+	width:20%;
+	text-align:left;
+}
+
+#foot3 {
+	display:inline-block;
+	vertical-align:top;
+	width:20%;
+	float:right;
+	text-align:left;
+	
+}
+a{
+	text-decoration:none;
+	color:#2f4f4f;
+}
+
+#infoinfo{
+	color:black;
+	font-family:"Arial";
+}
+
+#foot3:a{
+	text-decoration:none;
+	color:#2f4f4f;
+}
+
+#logoUnisa{
+	width:60%;
+}
+
+
