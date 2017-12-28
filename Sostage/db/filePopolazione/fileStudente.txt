@@ -1,0 +1,8 @@
+0512103549,Francesco,Marzullo,Fra10,10,
+0512103234,Mario,Andreone,Mario,allacci,
+0512106647,Alfonso,Signori,Alfo94,lord,
+0512106654,Maria,Alfieri,Malf55,princess,
+0512103472,Andrea,Iannaccone,Aianc,lupisempre,
+0512103699,Pasquale,Scudieri,Platone,mariano1,
+0512104552,Francesco,Caiazzo,Cajax,forzanapoli,
+0512103398,Alfredo,Ferrentino,Alfr8,rabbia666,
