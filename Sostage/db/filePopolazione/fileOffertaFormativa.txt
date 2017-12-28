@@ -1,0 +1,4 @@
+001,Sviluppo Grafico,Benevento,Grafica,Migliorare le capacita di sviluppo grafico, akdksahdkahdakhdakhdkahkdshakhdkhkhdkhaskdha,SpinVector,DGRGNI76S24H501R
+002,Servizio Cloud,Roma,Cloud,Migliorare le capacita di gestione dati,fuihnewigunsiea,Microsoft,CTLLGU85A20H703D
+003,Platform Services,Napoli,Cloud,Gestione Applicazioni cloud e Platform Services,skjdfbgksr,Oracle,SCTCNZ95S55B888W
+004,Piattaforma di Comunicazione,Salerno,Comunicazione,Agevolare la comunicazione fra sviluppatori,iugisruskjgd,GitHub,VNIMCL80E01A285U

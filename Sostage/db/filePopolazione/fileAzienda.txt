@@ -1,0 +1,4 @@
+SpinVector,SpinVector,spin,Mario Giannini,Benevento
+Microsoft,Microsoft,amoipc,Bill Gates,Redmond
+Oracle,Oracle,abc123,Larry Ellison,Silicon Valley
+GitHub,GitHub,polpettina,Chris Wanstrath,Redwood
