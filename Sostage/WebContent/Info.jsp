@@ -4,20 +4,20 @@
 <html>
 <head>
 
-<link rel="icon" href="/Sostage/images/icon.png">
+<link rel="icon" href="images/icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="/Sostage/style.css" type="text/css">
+<link rel="stylesheet" href="style.css" type="text/css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>SOSTAGE</title>
 </head>
 <body>
 	<div class="header">
-		<img id="logo" alt="immagine" src="/Sostage/images/LogoMotto.png">
+		<img id="logo" alt="immagine" src="images/LogoMotto.png">
 		
 		<div id="dipinfo">
-			<a href="http://www.di-srv.unisa.it/" target="_blank"><img alt="informaticapic" id="logoInfo" src="/Sostage/images/informatica.png"></a>
+			<a href="http://www.di-srv.unisa.it/" target="_blank"><img alt="informaticapic" id="logoInfo" src="images/informatica.png"></a>
 		</div>
 		
 		<button id="login"><i class="fa fa-user-o"></i> Login</button>
@@ -27,9 +27,10 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<img src="/Sostage/images/icon.png" id="imglgn">
+					<img src="images/icon.png" id="imglgn">
 				
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closemodal">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close" id="closemodal">
 						<span title="CloseLogin">&times;</span>
 					</button>
 				</div>
@@ -49,42 +50,24 @@
 			</div>
 		</div>
 	</div>
+	</div>
+	
 	<nav id="bar">
-		<a href="#"><div class="elebar"> <p>H O M E</p> </div></a>
-		<a href="/Sostage/Info.jsp"><div class="elebar"> <p>I N F O</p> </div></a>
-		<a href="/Sostage/AboutUs.jsp"><div class="elebar"> <p>A B O U T - U S</p> </div></a>
+		<a href="Index.jsp"><div class="elebar"> <p>H O M E</p> </div></a>
+		<a href="#"><div class="elebar"> <p>I N F O</p> </div></a>
+		<a href="AboutUs.jsp"><div class="elebar"> <p>A B O U T - U S</p> </div></a>
 	</nav>
 	
 	<div class="containerBody">
-	<div class="bodyDiv">
-			<div id="divStudente">
-				<h2>SEI UNO STUDENTE? </h2>
-				
-			</div>
-			<div class="iscri">
-			  <div class="sinistra">
-			    <a href="/Sostage/Registrati.jsp" class="btn">ISCRIVITI <img id="freccia" src="/Sostage/images/freccia.png"></a>
-			</div> 
-			</div>
-			
-			<div class="iscri">
-			  <div class="sinistra">
-			    <a href="/Sostage/AziendeConvenzionate.jsp" class="btn">AZIENDE CONVENZIONATE <img id="freccia" src="/Sostage/images/freccia.png"></a>
-			</div> 
-			</div>
-			
-	</div>
-	
-	<div class="bodyDiv">
-			<div id="divStudente">
-				<h2>SEI UN'AZIENDA? </h2>
-			</div>
-			
-			<div class="iscri">
-			  <div class="sinistra">
-			    <a href="/Sostage/MostraStudenti.jsp" class="btn">STUDENTI ISCRITTI<img id="freccia" src="/Sostage/images/freccia.png"></a>
-			</div> 
-			</div>
+	<div class="infoBodyDiv">
+		<div id="titleInfo">Info</div>
+		
+		<ul>
+			<li><p id="infoinfo">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+					</p>		
+			<li><p id="infoinfo">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. 
+				</p>
+		</ul>
 		
 	</div>
 	</div>
@@ -93,7 +76,7 @@
 	<footer id="footer">
 	
 		<div id="foot1">
-			<a href="http://www.unisa.it/" target="_blank"><img alt="informaticapic" id="logoUnisa" src="/Sostage/images/logoUnisa2.png"></a>
+			<a href="http://www.unisa.it/" target="_blank"><img alt="informaticapic" id="logoUnisa" src="images/logoUnisa2.png"></a>
 		</div>
 		
 		<div id="foot2">
@@ -104,14 +87,15 @@
 		</div>
 	
 		<div id="foot3">
-			<a href="#"><p><i class="fa fa-home"></i> home</p></a>
-			<a href="/Sostage/Info.jsp"><p><i class="fa fa-info-circle"></i> info</p></a>
-			<a href="/Sostage/AboutUs.jsp"><p><i class="fa fa-address-book"></i> about us</p></a>
+			<a href="Index.jsp"><p><i class="fa fa-home"></i> home</p></a>
+			<a href="Info.jsp"><p><i class="fa fa-info-circle"></i> info</p></a>
+			<a href="AboutUs.jsp"><p><i class="fa fa-address-book"></i> about us</p></a>
 			
 		</div>
 	
 	</footer>
 </body>
+
 <script type="text/javascript">
 var login = document.getElementById('login');
 var logmodal = document.getElementById('loginmodal');
