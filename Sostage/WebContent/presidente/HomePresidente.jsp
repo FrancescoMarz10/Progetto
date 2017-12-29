@@ -21,6 +21,9 @@
 			<a href="http://www.di-srv.unisa.it/" target="_blank"><img alt="informaticapic" id="logoInfo" src="/Sostage/images/informatica.png"></a>
 		</div>
 		
+	<form  id="logoutForm" action="/Sostage/LogoutServlet" method="post">	
+		<button type="submit" id="logout"><i class="fa fa-user-o"></i> Logout</button>
+	</form>
 	
 	<nav id="bar">
 		<a href="#"><div class="elebar"> <p>H O M E</p> </div></a>
@@ -30,12 +33,12 @@
 	
 	<div class="container">
 		
-									<img id="usericon" src="/Sostage/images/user.png" alt="superman"><h2 id="benv">Benvenuto !</h2>
+								<img id="usericon" src="/Sostage/images/user.png" alt="superman"><h2 id="benv">Benvenuto!</h2>
 					<br>
 					<ul>
-					  <li><p id="we">Nome: p></li>
-					  <li><p id="we">Cognome:()%></p></li>
-					  <li><p id="we">Mail: p></li>
+					  <li><p> id="we">Nome: </p></li>
+					  <li><p> id="we">Cognome: </p></li>
+					  <li><p> id="we">Mail: </p></li>
 					  
 					</ul>
 					

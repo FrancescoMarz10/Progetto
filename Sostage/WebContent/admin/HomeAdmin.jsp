@@ -1,4 +1,4 @@
-
+<%@ page import="bean.UtenteBean, bean.GestoreBean, model.GestoreModel" %> 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -20,6 +20,9 @@
 			<a href="http://www.di-srv.unisa.it/" target="_blank"><img alt="informaticapic" id="logoInfo" src="/Sostage/images/informatica.png"></a>
 		</div>
 		
+	<form  id="logoutForm" action="/Sostage/LogoutServlet" method="post">	
+		<button type="submit" id="logout"><i class="fa fa-user-o"></i> Logout</button>
+	</form>
 	
 	<nav id="bar">
 		<a href="#"><div class="elebar"> <p>H O M E</p> </div></a>
@@ -29,13 +32,12 @@
 	
 	<div class="container">
 		
-				<div id="info">
-										<img id="superman" src="/Sostage/images/man.png" alt="superman"><h2 id="benv">Benvenuto %> !</h2>
+							<img id="superman" src="/Sostage/images/man.png" alt="superman"><h2 id="benv">Benvenuto !</h2>
 					<br>
 					<ul>
-					  <li><p id="we">Nome:</p></li>
-					  <li><p id="we">Cognome:</p></li>
-					 <li> <p id="we">Mail:()%></p></li>
+					  <li><p> id="we">Nome: </p></li>
+					  <li><p> id="we">Cognome: </p></li>
+					 <li> <p> id="we">Mail: </p></li>
 					  
 					</ul>
 					
