@@ -123,5 +123,42 @@ public class UtenteModel {
 //-----------------------------------------------------------------------------------------------------------------------------
 	
 	
+
+	public ArrayList<UtenteBean> doRetrieveAll() throws SQLException{
+		java.sql.Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String selectSQL = "SELECT * FROM utente";
+		ArrayList<UtenteBean> utenti= new ArrayList<UtenteBean>();
+		
+		try {
+			connection =  DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()){
+				UtenteBean bean= new UtenteBean();
+				
+				bean.setGestore(rs.getString("Gestore"));
+				bean.setMail(rs.getString("Mail"));
+				bean.setPsw(rs.getString("Psw"));
+				bean.setRuolo(rs.getString("Ruolo"));
+				bean.setUsername(rs.getString("Username"));
+				
+				utenti.add(bean);
+			}
+		
+			
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return utenti;
+	}
 	
+	
+
 }
