@@ -1,7 +1,6 @@
 package bean;
 
 public class TutorInternoBean {
-
 	private String CF;
 	private String nome;
 	private String cognome;

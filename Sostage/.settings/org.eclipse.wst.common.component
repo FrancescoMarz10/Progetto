@@ -2,7 +2,7 @@
     <wb-module deploy-name="Sostage">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="java-output-path" value="/Sostage/build/classes"/>
         <property name="context-root" value="Sostage"/>
+        <property name="java-output-path" value="/Sostage/build/classes"/>
     </wb-module>
 </project-modules>

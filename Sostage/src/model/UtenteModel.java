@@ -122,6 +122,32 @@ public class UtenteModel {
 	
 //-----------------------------------------------------------------------------------------------------------------------------
 	
+	public ArrayList<String> doRetrieveAllMails() throws SQLException{
+		java.sql.Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String selectSQL = "SELECT Mail FROM utente";
+		ArrayList<String> mail= new ArrayList<String>();
+		
+		try {
+			connection =  DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			if(rs.next()){
+				mail.add(rs.getString("Mail"));
+			}
+		
+			
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return mail;
+	}
 	
 
 	public ArrayList<UtenteBean> doRetrieveAll() throws SQLException{
@@ -160,5 +186,34 @@ public class UtenteModel {
 	}
 	
 	
-
+	
+	public ArrayList<String> doRetrieveDistinctRoles() throws SQLException{
+		java.sql.Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String selectSQL = "SELECT DISTINCT(Ruolo) FROM utente";
+		ArrayList<String> ruoli= new ArrayList<String>();
+		
+		try {
+			connection =  DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()){
+				String ruolo= rs.getString("Ruolo");
+				
+				ruoli.add(ruolo);
+			}
+		
+			
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return ruoli;
+	}
+	
 }

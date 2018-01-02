@@ -32,12 +32,18 @@
 	
 	<div class="container">
 		
-							<img id="superman" src="/Sostage/images/man.png" alt="superman"><h2 id="benv">Benvenuto !</h2>
+				<div id="info">
+					<%
+						GestoreBean bean=(GestoreBean)session.getAttribute("gestore"); 
+						GestoreModel model= new GestoreModel();
+						
+					%>
+					<img id="superman" src="/Sostage/images/man.png" alt="superman"><h2 id="benv">Benvenuto <%=bean.getUsername()  %> !</h2>
 					<br>
 					<ul>
-					  <li><p> id="we">Nome: </p></li>
-					  <li><p> id="we">Cognome: </p></li>
-					 <li> <p> id="we">Mail: </p></li>
+					  <li><p id="we">Nome: <%=bean.getNome() %></id></li>
+					  <li><p id="we">Cognome: <%=bean.getCognome()%></id></li>
+					 <li> <p id="we">Mail: <%=bean.getMail()%></id></li>
 					  
 					</ul>
 					

@@ -1,4 +1,4 @@
-
+<%@ page import="bean.AziendaBean, bean.UtenteBean, model.AziendaModel" %> 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -33,13 +33,19 @@
 	
 	<div class="container">
 		
-				<					<img id="industry" src="/Sostage/images/industry.png" alt="industry"><h2 id="benv">Benvenuto !</h2>
+				<div id="info">
+					<%
+						UtenteBean bean=(UtenteBean)session.getAttribute("bean"); 
+						AziendaModel model= new AziendaModel();
+						AziendaBean azienda=model.doRetrieveByUsername(bean.getUsername());
+					%>
+					<img id="industry" src="/Sostage/images/industry.png" alt="industry"><h2 id="benv">Benvenuto <%=azienda.getUsername()  %> !</h2>
 					<br>
 					<ul>
-					  <li><p> id="we">Nome: </p></li>
-					  <li><p> id="we">Sede: </p></li>
-					  <li><p> id="we">Mail: </p></li>
-					  <li><p> id="we">Nome Responsabile:</p></li>
+					  <li><p id="we">Nome: <%=azienda.getNome() %></p></li>
+					  <li><p id="we">Sede: <%=azienda.getSede()%></p></li>
+					  <li><p id="we">Mail: <%=bean.getMail()%></p></li>
+					  <li><p id="we">Nome Responsabile: <%=azienda.getNomeResp()%></p></li>
 					  
 					</ul>
 					

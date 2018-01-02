@@ -174,10 +174,10 @@ LOAD DATA LOCAL INFILE 'C:/Users/utente/workspace/Sostage/db/filePopolazione/fil
 
 UPDATE studente SET TutorInterno='VNANLL95L11H931K' WHERE studente.Matricola='0512103549';
 UPDATE studente SET OffertaFormativa='002' WHERE studente.Matricola='0512103549';
+INSERT INTO offertaformativa(ID,Nome,Sede,Tema,Obiettivi,ModalitaSvolgimento) VALUES (-1,'rifiuto','rifiuto','rifiuto','rifiuto','rifiuto');
 
 LOAD DATA LOCAL INFILE 'C:/Users/utente/workspace/Sostage/db/filePopolazione/fileUfficio.txt' INTO TABLE  ufficio FIELDS terminated by ',' LINES terminated by '\n' (Sigla,Username,Psw);
 LOAD DATA LOCAL INFILE 'C:/Users/utente/workspace/Sostage/db/filePopolazione/filePresidente.txt' INTO TABLE  presidente FIELDS terminated by ',' LINES terminated by '\n' (Nome,Cognome,Username,Psw,CF);
-LOAD DATA LOCAL INFILE 'C:/Users/utente/workspace/Sostage/db/filePopolazione/fileTirocinio.txt' INTO TABLE tirocinio FIELDS terminated by ',' LINES terminated by '\n' (Codice,Materia,Periodo,Luogo,TutorInterno,TutorEsterno,Studente,Azienda,Presidente,Documento);
 
 
 

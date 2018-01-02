@@ -1,4 +1,4 @@
-
+<%@ page import="bean.TutorInternoBean, bean.UtenteBean, model.TutorInternoModel" %> 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -34,12 +34,17 @@
 	<div class="container">
 		
 				<div id="info">
-									<img id="usericon" src="/Sostage/images/user.png" alt="superman"><h2 id="benv">Benvenuto!</h2>
+					<%
+						UtenteBean bean=(UtenteBean)session.getAttribute("bean"); 
+						TutorInternoModel model= new TutorInternoModel();
+						TutorInternoBean tutor=model.doRetrieveByUsername(bean.getUsername());
+					%>
+					<img id="usericon" src="/Sostage/images/user.png" alt="superman"><h2 id="benv">Benvenuto <%=tutor.getUsername()  %> !</h2>
 					<br>
 					<ul>
-					  <li><p> id="we">Nome:</p></li>
-					  <li><p> id="we">Cognome: </p></li>
-					  <li><p> id="we">Mail:</p></li>
+					  <li><p id="we">Nome: <%=tutor.getNome() %></p></li>
+					  <li><p id="we">Cognome: <%=tutor.getCognome()%></p></li>
+					  <li><p id="we">Mail: <%=bean.getMail()%></p></li>
 					  
 					</ul>
 					

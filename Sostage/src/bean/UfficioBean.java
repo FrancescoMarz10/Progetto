@@ -1,48 +1,52 @@
 package bean;
 
 public class UfficioBean {
-	private String username;
-	private String psw;
-	private String sigla;
-	
-	public UfficioBean(){
-		username="";
-		psw="";
-		sigla="";
-	}
-	
-	public UfficioBean(String user, String ps, String sigla1){
-		username=user;
-		psw=ps;
-		sigla=sigla1;
-	}
-	
-	public String getUsername() {
-		return username;
-	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+		private String Sigla;
+		private String username;
+		private String password;
+		
+		
+		public UfficioBean() {
+			Sigla="";
+			username="";
+			password="";
+		}
+		
+		public UfficioBean(String unaSigla, String unUsername, String unaPassword) {
+			Sigla=unaSigla;
+			username=unUsername;
+			password=unaPassword;
+		}
 
-	public String getPsw() {
-		return psw;
-	}
+		public String getSigla() {
+			return Sigla;
+		}
 
-	public void setPsw(String psw) {
-		this.psw = psw;
-	}
+		public void setSigla(String sigla) {
+			Sigla = sigla;
+		}
 
-	public String getSigla() {
-		return sigla;
-	}
+		public String getUsername() {
+			return username;
+		}
 
-	public void setSigla(String sigla) {
-		this.sigla = sigla;
-	}
+		public void setUsername(String username) {
+			this.username = username;
+		}
 
-	public String toString() {
-		return "UfficioBean [username=" + username +", psw=" + psw +", sigla=" + sigla + "]";
-	}
+		public String getPassword() {
+			return password;
+		}
 
+		public void setPassword(String password) {
+			this.password = password;
+		}
+
+
+		public String toString() {
+			return "UfficioBean [Sigla=" + Sigla + ", username=" + username + ", password=" + password + "]";
+		}
+		
+		
 }
