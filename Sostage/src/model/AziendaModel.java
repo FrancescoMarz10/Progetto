@@ -144,6 +144,8 @@ public class AziendaModel {
 	
 //-----------------------------------------------------------------------------------------------------------------------------------------
 	
+	
+	
 	public void aggiungiOffertaFormativa(String nome,String sede,String tema,String obiettivi,String modalitaSvolgimento,String tutorEsterno,String azienda) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -193,7 +195,135 @@ public class AziendaModel {
 	
 	
 	
+	public Collection<StudenteBean> trovaTirocinanti(String nomeAzienda) throws SQLException{
+		Connection connection =null;
+		PreparedStatement preparedStatement =null;
+		
+		 Collection<StudenteBean> studentiRichieste=new ArrayList<StudenteBean>();
+		 ArrayList<OffertaFormativaBean> array=(ArrayList<OffertaFormativaBean>) trovaOfferteFormative(nomeAzienda);
+		 Collection<StudenteBean> studenti= new ArrayList<StudenteBean>();
+		 StudenteModel model= new StudenteModel();
+		 String selectSQL="SELECT * FROM Studente WHERE OffertaFormativa=?";
+		 
+		
+		 try{
+			for (OffertaFormativaBean offertaFormativaBean : array) {
+				
+				 connection = DriverManagerConnectionPool.getConnection();
+				 preparedStatement= connection.prepareStatement(selectSQL);
+				 preparedStatement.setInt(1, offertaFormativaBean.getID());
+				 ResultSet rs= preparedStatement.executeQuery();
+				 
+				 while(rs.next()) {
+					 String matricola=rs.getString("Matricola");
+					 studenti.add(model.doRetrieveByMatricola(matricola));
+				 }
+				 
+			}
+			
+			selectSQL="SELECT * FROM Tirocinio WHERE Studente=?";
+		 	
+			for (StudenteBean studenteBean : studenti) {
+			
+				 connection = DriverManagerConnectionPool.getConnection();
+				 preparedStatement= connection.prepareStatement(selectSQL);
+				 preparedStatement.setString(1, studenteBean.getMatricola());
+				 ResultSet rs= preparedStatement.executeQuery();
+				 
+				 while(rs.next()) {
+					 String azienda=rs.getString("Azienda");
+					 String tutorInterno=rs.getString("TutorInterno");
+					 String tutorEsterno=rs.getString("TutorEsterno");
+					 String presidente=rs.getString("Presidente");
+					
+					 if(azienda!=null && tutorInterno!=null && tutorEsterno!=null && presidente!= null) {
+						
+						 studentiRichieste.add(studenteBean);
+
+					 }
+				 }
+			
+			}
+
+		 } 
+		 finally{
+		
+			 try{
+				 if(preparedStatement!=null)
+					 preparedStatement.close();
+			 }
+			 finally{
+				 DriverManagerConnectionPool.releaseConnection(connection);
+			 }		 
+		 }
+		  
+		return studentiRichieste;
+		
+	}
+
 	
+	public Collection<StudenteBean> trovaStudentiConRichiesta(String nomeAzienda) throws SQLException{
+		Connection connection =null;
+		PreparedStatement preparedStatement =null;
+		
+		 Collection<StudenteBean> studentiRichieste=new ArrayList<StudenteBean>();
+		 ArrayList<OffertaFormativaBean> array=(ArrayList<OffertaFormativaBean>) trovaOfferteFormative(nomeAzienda);
+		 Collection<StudenteBean> studenti= new ArrayList<StudenteBean>();
+		 StudenteModel model= new StudenteModel();
+		 String selectSQL="SELECT * FROM Studente WHERE OffertaFormativa=?";
+		 
+		
+		 try{
+			for (OffertaFormativaBean offertaFormativaBean : array) {
+				
+				 connection = DriverManagerConnectionPool.getConnection();
+				 preparedStatement= connection.prepareStatement(selectSQL);
+				 preparedStatement.setInt(1, offertaFormativaBean.getID());
+				 ResultSet rs= preparedStatement.executeQuery();
+				 
+				 while(rs.next()) {
+					 String matricola=rs.getString("Matricola");
+					 studenti.add(model.doRetrieveByMatricola(matricola));
+				 }
+				 
+			}
+			
+			selectSQL="SELECT Azienda FROM Tirocinio WHERE Studente=?";
+		 	
+			for (StudenteBean studenteBean : studenti) {
+			
+				 connection = DriverManagerConnectionPool.getConnection();
+				 preparedStatement= connection.prepareStatement(selectSQL);
+				 preparedStatement.setString(1, studenteBean.getMatricola());
+				 ResultSet rs= preparedStatement.executeQuery();
+				 
+				 while(rs.next()) {
+					 String azienda=rs.getString("Azienda");
+				
+					 if(azienda==null) {
+						
+						 studentiRichieste.add(studenteBean);
+
+					 }
+				 }
+			
+			}
+
+		 } 
+		 finally{
+		
+			 try{
+				 if(preparedStatement!=null)
+					 preparedStatement.close();
+			 }
+			 finally{
+				 DriverManagerConnectionPool.releaseConnection(connection);
+			 }		 
+		 }
+		  
+		return studentiRichieste;
+		
+	}
 	
 	
 }

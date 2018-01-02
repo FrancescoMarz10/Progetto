@@ -156,7 +156,154 @@ public class StudenteModel {
 	}
 	
 
+	/*_____________________________________________________________________________________________________*/
 	
+	
+	public Collection<StudenteBean> doRetrieveAll() throws SQLException {
+		Connection connection =null;
+		PreparedStatement preparedStatement =null;
+		
+		 Collection<StudenteBean> products =new LinkedList<StudenteBean>();
+		 
+		 String selectSQL="SELECT * FROM Studente";
+		 
+		
+		 try{
+			 connection = DriverManagerConnectionPool.getConnection();
+			 preparedStatement= connection.prepareStatement(selectSQL);
+			
+			 ResultSet rs= preparedStatement.executeQuery();
+			 
+			 while(rs.next()){
+				 StudenteBean bean= new StudenteBean();
+				
+				 bean.setCognome(rs.getString("Cognome"));
+				 bean.setNome(rs.getString("Nome"));
+				 bean.setMatricola(rs.getString("Matricola"));
+				 bean.setPsw(rs.getString("Psw"));
+				 bean.setUsername(rs.getString("Username"));
+				 bean.setTutorInterno(rs.getString("TutorInterno"));
+				 bean.setOffertaFormativa(rs.getInt("OffertaFormativa"));
+				 
+				 products.add(bean);
+			 }
+			 
+		 } 
+		 finally{
+		
+			 try{
+				 if(preparedStatement!=null)
+					 preparedStatement.close();
+			 }
+			 finally{
+				 DriverManagerConnectionPool.releaseConnection(connection);
+			 }		 
+		 }
+		  
+		return products;
+	}
+	
+	
+//__________________________________________________________________________________________________________________________________
+	
+	public void aggiornaOffertaFormativa(int ID,String matricola) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
 
+		String insertSQL="UPDATE Studente SET OffertaFormativa=? WHERE Matricola=?";
+		
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+		
+			preparedStatement.setInt(1, ID);
+			preparedStatement.setString(2, matricola);
+			preparedStatement.executeUpdate();
+		
+			
+			
+			connection.commit();
+			
+			
+			
+			
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+	}
+
+	
+	public void aggiornaTutorInterno(String tutorInterno,String matricola) throws SQLException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String insertSQL="UPDATE Studente SET TutorInterno=?  WHERE Matricola=?";
+		
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, tutorInterno);
+			preparedStatement.setString(2, matricola);
+			preparedStatement.executeUpdate();
+			
+			
+			connection.commit();
+			
+			
+			
+			
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+	}
+
+	
+public StudenteBean doRetrieveByMatricola(String matricola) throws SQLException{
+		
+		java.sql.Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String selectSQL = "SELECT * FROM Studente WHERE Matricola=?";
+		StudenteBean utente= new StudenteBean();
+		
+		try {
+			connection =  DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			preparedStatement.setString(1, matricola);
+	
+			ResultSet rs = preparedStatement.executeQuery();
+			if(rs.next()){
+				
+				utente.setMatricola(rs.getString("Matricola"));
+				utente.setCognome(rs.getString("Cognome"));
+				utente.setNome(rs.getString("Nome"));
+				utente.setPsw(rs.getString("Psw"));
+				utente.setUsername(rs.getString("Username"));
+				utente.setTutorInterno(rs.getString("TutorInterno"));
+				utente.setOffertaFormativa(rs.getInt("OffertaFormativa"));
+			}
+		
+			
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return utente;
+	}
 	
 }
