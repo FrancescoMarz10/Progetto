@@ -188,36 +188,6 @@ public class OffertaFormativaModel {
 	
 	
 	
-	public void cancellaOfferta(int ID) throws SQLException {
-
-		java.sql.Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		String selectSQL = "DELETE FROM offertaFormativa WHERE ID=?";
-		
-		
-		try {
-			connection =  DriverManagerConnectionPool.getConnection();
-			preparedStatement = (PreparedStatement) connection.prepareStatement(selectSQL);
-			
-			preparedStatement.setInt(1, ID);
-	
-		
-			preparedStatement.executeUpdate();
-
-			connection.commit();
-		
-			
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-		
-		
-	}
 	
 public Collection<OffertaFormativaBean> doRetrieveAll() throws SQLException {
 		Connection connection =null;

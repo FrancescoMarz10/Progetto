@@ -144,8 +144,6 @@ public class AziendaModel {
 	
 //-----------------------------------------------------------------------------------------------------------------------------------------
 	
-	
-	
 	public void aggiungiOffertaFormativa(String nome,String sede,String tema,String obiettivi,String modalitaSvolgimento,String tutorEsterno,String azienda) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -194,7 +192,7 @@ public class AziendaModel {
 	
 	
 	
-
+	
 	
 	
 	
