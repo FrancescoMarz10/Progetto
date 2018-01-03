@@ -47,15 +47,45 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("psw");
 		String redirectPage;
 			
+		//CONTROLLO USERNAME
 		if(username == null || username.trim().equals("")) {
 			error+= "Inserisci Username <br>"; 
-		} else {
-			request.setAttribute("username", username);
+		} else if(username.length()<2 || username.length()>20){
+			error+="Lunghezza username non valida <br>";
+		}
+		else {
+			int i;
+			for(i=0;i<username.length();i++) {
+				char ch=username.charAt(i);
+				if(username.contains(" ")) {
+					error+="formato username non valido <br>";
+					break;
+				}
+			}
+			if(i==username.length()) {
+				request.setAttribute("username", username);
+			}
 		}
 
+		//CONTROLLO PASSWORD
 		if(password == null || password.trim().equals("")) {
 			error+= "Inserisci Password <br>";
 		}
+		else if(password.length()<2 || password.length()>20){
+			error+="Lunghezza password non valida <br>";
+		}
+		else {
+			int i;
+			for(i=0;i<password.length();i++) {
+				char ch=password.charAt(i);
+				if(password.contains(" ")) {
+					error+="formato password non valido <br>";
+					break;
+				}
+			}
+		}
+		
+		
 		
 		try{
 			String tipo=model.checkUser(username, password);

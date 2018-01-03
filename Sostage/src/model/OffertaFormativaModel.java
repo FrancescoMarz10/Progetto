@@ -36,7 +36,11 @@ public class OffertaFormativaModel {
 			 
 			 while(rs.next()){
 				
-				 città.add(rs.getString("Sede"));
+				 String sede =rs.getString("Sede");
+				 if(!sede.equals("rifiuto")) {			 
+					città.add(sede);
+					}
+
 			 }
 			 
 		 } 
@@ -73,8 +77,14 @@ public class OffertaFormativaModel {
 			 
 			 while(rs.next()){
 				
-				 tematiche.add(rs.getString("Tema"));
+				 String tema= rs.getString("Tema");
+				 if(!tema.equals("rifiuto")) {			 
+					 tematiche.add(tema);
+					}
+				 
 			 }
+			 
+			 
 			 
 		 } 
 		 finally{
