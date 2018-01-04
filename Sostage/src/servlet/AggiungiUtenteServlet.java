@@ -39,6 +39,17 @@ public class AggiungiUtenteServlet extends HttpServlet {
 			String username=request.getParameter("username");
 			String psw=request.getParameter("psw");
 			
+			int a=0;
+			String[] arr= new String[5];
+			
+			if(mail.contains("@")) {
+				 arr=  mail.split("@");
+			}
+			else {
+				error+="Formato mail non valido";
+				a=1;
+			}
+			
 			//CONTROLLO NOME AZIENDA
 			if(nome == null || nome.trim().equals("")) {
 				error+= "Inserisci Nome Correttamente\n";
@@ -102,6 +113,16 @@ public class AggiungiUtenteServlet extends HttpServlet {
 			}
 			else if(!mail.contains("@")) {
 				error+="format mail non valido \n";
+			}
+			else {
+				int i;
+				for(i=0;i<arr[0].length();i++) {
+					char ch=arr[0].charAt(i);
+					if(!Character.isLetter(ch) && !Character.isSpaceChar(ch)) {
+						error+="formato mail non valido \n";
+						break;
+					}
+				}
 			}
 			
 
@@ -167,6 +188,18 @@ public class AggiungiUtenteServlet extends HttpServlet {
 			String username=request.getParameter("username");
 			String psw=request.getParameter("psw");
 			
+			int a=0;
+			String[] arr= new String[5];
+			
+			if(mail.contains("@")) {
+				 arr=  mail.split("@");
+			}
+			else {
+				error+="Formato mail non valido";
+				a=1;
+			}
+			
+			
 			//CONTROLLO NOME PRESIDENTE
 			if(nome == null || nome.trim().equals("")) {
 				error+= "Inserisci Nome Correttamente\n";
@@ -210,7 +243,18 @@ public class AggiungiUtenteServlet extends HttpServlet {
 			else if(CF.length()<16){
 				error+="Lunghezza CF non valida \n";
 			}
-		
+			else {
+				int i;
+				for(i=0;i<CF.length();i++) {
+					char ch=CF.charAt(i);
+					if(!Character.isLetter(ch) && !Character.isSpaceChar(ch)) {
+						error+="formato CF non valido \n";
+						break;
+					}
+				}
+			}
+			
+			
 			
 			//CONTROLLO MAIL
 			if(mail == null || mail.trim().equals("")) {
@@ -219,6 +263,17 @@ public class AggiungiUtenteServlet extends HttpServlet {
 			else if(!mail.contains("@")) {
 				error+="format mail non valido \n";
 			}
+			else {
+				int i;
+				for(i=0;i<arr[0].length();i++) {
+					char ch=arr[0].charAt(i);
+					if(!Character.isLetter(ch) && !Character.isSpaceChar(ch)) {
+						error+="formato mail non valido \n";
+						break;
+					}
+				}
+			}
+			
 			
 			//CONTROLLO CAMPO USERNAME
 			if(username == null || username.trim().equals("")) {
@@ -284,6 +339,16 @@ public class AggiungiUtenteServlet extends HttpServlet {
 			String username=request.getParameter("username");
 			String psw=request.getParameter("psw");
 			
+			int a=0;
+			String[] arr= new String[5];
+			
+			if(mail.contains("@")) {
+				 arr=  mail.split("@");
+			}
+			else {
+				error+="Formato mail non valido";
+				a=1;
+			}
 			
 			//CONTROLLO NOME TUTOR
 			if(nome == null || nome.trim().equals("")) {
@@ -328,7 +393,17 @@ public class AggiungiUtenteServlet extends HttpServlet {
 			else if(CF.length()<16){
 				error+="Lunghezza CF non valida \n";
 			}
-		
+			else {
+				int i;
+				for(i=0;i<CF.length();i++) {
+					char ch=CF.charAt(i);
+					if(!Character.isLetter(ch) && !Character.isSpaceChar(ch)) {
+						error+="formato CF non valido \n";
+						break;
+					}
+				}
+			}
+			
 			
 			//CONTROLLO MAIL
 			if(mail == null || mail.trim().equals("")) {
@@ -336,6 +411,16 @@ public class AggiungiUtenteServlet extends HttpServlet {
 			}
 			else if(!mail.contains("@")) {
 				error+="format mail non valido \n";
+			}
+			else {
+				int i;
+				for(i=0;i<arr[0].length();i++) {
+					char ch=arr[0].charAt(i);
+					if(!Character.isLetter(ch) && !Character.isSpaceChar(ch)) {
+						error+="formato mail non valido \n";
+						break;
+					}
+				}
 			}
 			
 			//CONTROLLO CAMPO USERNAME
@@ -400,7 +485,16 @@ public class AggiungiUtenteServlet extends HttpServlet {
 			String username=request.getParameter("username");
 			String psw=request.getParameter("psw");
 		
-		
+			int a=0;
+			String[] arr= new String[5];
+			
+			if(mail.contains("@")) {
+				 arr=  mail.split("@");
+			}
+			else {
+				error+="Formato mail non valido";
+				a=1;
+			}
 
 			//CONTROLLO NOME TUTOR
 			if(nome == null || nome.trim().equals("")) {
@@ -445,7 +539,17 @@ public class AggiungiUtenteServlet extends HttpServlet {
 			else if(CF.length()<16){
 				error+="Lunghezza CF non valida \n";
 			}
-		
+			else {
+				int i;
+				for(i=0;i<CF.length();i++) {
+					char ch=CF.charAt(i);
+					if(!Character.isLetter(ch) && !Character.isSpaceChar(ch)) {
+						error+="formato CF non valido \n";
+						break;
+					}
+				}
+			}
+			
 			
 			//CONTROLLO MAIL
 			if(mail == null || mail.trim().equals("")) {
@@ -453,6 +557,16 @@ public class AggiungiUtenteServlet extends HttpServlet {
 			}
 			else if(!mail.contains("@")) {
 				error+="format mail non valido \n";
+			}
+			else {
+				int i;
+				for(i=0;i<arr[0].length();i++) {
+					char ch=arr[0].charAt(i);
+					if(!Character.isLetter(ch) && !Character.isSpaceChar(ch)) {
+						error+="formato mail non valido \n";
+						break;
+					}
+				}
 			}
 			
 			//CONTROLLO CAMPO USERNAME
@@ -517,7 +631,16 @@ public class AggiungiUtenteServlet extends HttpServlet {
 			String username=request.getParameter("username");
 			String psw=request.getParameter("psw");
 			
+			int a=0;
+			String[] arr= new String[5];
 			
+			if(mail.contains("@")) {
+				 arr=  mail.split("@");
+			}
+			else {
+				error+="Formato mail non valido";
+				a=1;
+			}
 
 			//CONTROLLO SIGLA UFFICIO
 			if(sigla == null || sigla.trim().equals("")) {
@@ -544,6 +667,16 @@ public class AggiungiUtenteServlet extends HttpServlet {
 			}
 			else if(!mail.contains("@")) {
 				error+="format mail non valido \n";
+			}
+			else {
+				int i;
+				for(i=0;i<arr[0].length();i++) {
+					char ch=arr[0].charAt(i);
+					if(!Character.isLetter(ch) && !Character.isSpaceChar(ch)) {
+						error+="formato mail non valido \n";
+						break;
+					}
+				}
 			}
 			
 			//CONTROLLO CAMPO USERNAME

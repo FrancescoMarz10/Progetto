@@ -160,6 +160,17 @@ public class RegistrazioneServlet extends HttpServlet {
 				error+="Formato mail non valido";
 			}
 		}
+		else {
+			int i;
+			for(i=0;i<arr[0].length();i++) {
+				char ch=arr[0].charAt(i);
+				if(!Character.isLetter(ch) && !Character.isSpaceChar(ch)) {
+					error+="formato mail non valido \n";
+					break;
+				}
+			}
+		}
+		
 		
 		//CONTROLLA CONDIZIONE
 		if(error==null || !error.trim().equals("")){

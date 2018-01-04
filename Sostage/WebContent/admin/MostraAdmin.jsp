@@ -25,10 +25,7 @@
 							<form id="aggiungiUtente" action="AggiungiUtenteServlet" method="post">
 								<input type="hidden" name="role" value="<%=ruolo%>"> 
 								
-							 <label for="CF">Codice Fiscale</label> <br>
-							  <input id="CF" type="text" name="CF" maxlength="16" placeholder="enter fiscal code" required> 
-						     <br>   	
-						     <br>
+							
 						     <label for="Nome">Nome</label> <br>
 							 <input id="Nome" type="text" name="Nome" placeholder="enter name" required> 
 							 <br>
@@ -37,6 +34,10 @@
 						     <input id="Cognome" type="text" name="Cognome" placeholder="enter cognome" required> 
 							 <br>
 							 <br>
+							  <label for="CF">Codice Fiscale</label> <br>
+							  <input id="CF" type="text" name="CF" maxlength="16" placeholder="enter fiscal code" required> 
+						     <br>   	
+						     <br>
 							  <label for="mail">Mail</label> <br>
 						     <input id="mail" type="text" name="mail" placeholder="enter mail" required> 
 							 <br>
@@ -54,6 +55,7 @@
 						      	if(error!=null &&! error.equals("")){
 						      %>
 						      	<p id="errorReg"><%=error %></p>	
+						   
 						      <% 
 						      	}
 						      %>
@@ -100,7 +102,8 @@
 						      <% String error=(String)request.getAttribute("error");
 						      	if(error!=null &&! error.equals("")){
 						      %>
-						      	<p id="errorReg"><%=error %></p>	
+						      	<p id="errorReg"><%=error %></p>
+						      	
 						      <% 
 						      	}
 						      %>
