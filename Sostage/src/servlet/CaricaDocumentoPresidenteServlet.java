@@ -20,9 +20,11 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import bean.AziendaBean;
 import bean.PresidenteBean;
+import bean.StudenteBean;
 import bean.TirocinioBean;
 import bean.UtenteBean;
 import model.AziendaModel;
+import model.NotificaModel;
 import model.PresidenteModel;
 import model.StudenteModel;
 import model.TirocinioModel;
@@ -44,6 +46,8 @@ public class CaricaDocumentoPresidenteServlet extends HttpServlet {
 		PresidenteModel mod= new PresidenteModel();
 		PresidenteBean presidente;
 		String CF="";
+		String matricola="";
+		
 		try {
 			presidente = mod.doRetrieveByUsername(bean.getUsername());
 			CF=presidente.getCF();
@@ -93,10 +97,12 @@ public class CaricaDocumentoPresidenteServlet extends HttpServlet {
 					if(fileName.lastIndexOf("\\")>=0) {
 						file= new File(filePath+fileName);
 						tirocinio= model1.doRetrieveByDocument(fi.getName());
+						matricola=fi.getName().substring(0, 10);
 					}
 					else {
 						file= new File(filePath+fileName);
-						tirocinio= model1.doRetrieveByDocument(fi.getName());					
+						tirocinio= model1.doRetrieveByDocument(fi.getName());
+						matricola=fi.getName().substring(0, 10);
 					}
 				
 					fi.write(file);
@@ -105,7 +111,15 @@ public class CaricaDocumentoPresidenteServlet extends HttpServlet {
 				
 			}
 				int codice=tirocinio.getCodice();
+				String nomeAzienda= tirocinio.getAzienda();
 				model1.aggiornaPresidente(CF, codice);
+				StudenteModel modelStu= new StudenteModel();
+				StudenteBean studente=modelStu.doRetrieveByMatricola(matricola);
+				
+				
+				NotificaModel modelNot= new NotificaModel();
+				modelNot.aggiungiNotifica("Il Presidente ha accettato la richiesta di tirocinio di"+studente.getNome()+" "+studente.getCognome(),"AccettaP", null, null, null, nomeAzienda, matricola);
+				
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/presidente/successoCaricamentoPresidente.jsp"); 
 				dispatcher.forward(request, response);
 				return;

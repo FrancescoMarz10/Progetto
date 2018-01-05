@@ -22,6 +22,7 @@ import bean.TirocinioBean;
 import bean.TutorEsternoBean;
 import bean.TutorInternoBean;
 import bean.UtenteBean;
+import model.NotificaModel;
 import model.StudenteModel;
 import model.TirocinioModel;
 import model.TutorEsternoModel;
@@ -45,6 +46,8 @@ public class CaricaDocumentoTIServlet extends HttpServlet {
 		TutorInternoModel mod= new TutorInternoModel();
 		TutorInternoBean tutor;
 		String CF="";
+		String matricola="";
+		
 		try {
 			tutor = mod.doRetrieveByUsername(bean.getUsername());
 			CF=tutor.getCF();
@@ -94,10 +97,12 @@ public class CaricaDocumentoTIServlet extends HttpServlet {
 					if(fileName.lastIndexOf("\\")>=0) {
 						file= new File(filePath+fileName);
 						tirocinio= model1.doRetrieveByDocument(fi.getName());
+						matricola=fi.getName().substring(0, 10);
 					}
 					else {
 						file= new File(filePath+fileName);
-						tirocinio= model1.doRetrieveByDocument(fi.getName());					
+						tirocinio= model1.doRetrieveByDocument(fi.getName());	
+						matricola=fi.getName().substring(0, 10);
 					}
 				
 					fi.write(file);
@@ -107,7 +112,12 @@ public class CaricaDocumentoTIServlet extends HttpServlet {
 			}
 				int codice=tirocinio.getCodice();
 				model1.aggiornaTutorInterno(CF,codice);
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/tutorEsterno/successoCaricamentoTE.jsp"); 
+				
+				NotificaModel modelNot= new NotificaModel();
+				modelNot.aggiungiNotifica("Lo studente "+ model.doRetrieveByMatricola(matricola).getNome()+ " "+model.doRetrieveByMatricola(matricola).getCognome()+" ha effettuato una richiesta di tirocinio","RichiestaUfficio", "UNISA", CF, null, null, matricola);
+				
+				
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/tutorInterno/SuccessoCaricamentoTI.jsp"); 
 				dispatcher.forward(request, response);
 				return;
 			

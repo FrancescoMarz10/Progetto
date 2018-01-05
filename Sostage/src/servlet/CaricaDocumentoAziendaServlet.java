@@ -25,6 +25,7 @@ import bean.TirocinioBean;
 import bean.UtenteBean;
 import model.AziendaModel;
 import model.DocumentoModel;
+import model.NotificaModel;
 import model.OffertaFormativaModel;
 import model.StudenteModel;
 import model.TirocinioModel;
@@ -49,6 +50,8 @@ public class CaricaDocumentoAziendaServlet extends HttpServlet {
 		AziendaModel modAz= new AziendaModel();
 		AziendaBean azienda;
 		String nomeAzienda="";
+		String matricola="";
+		
 		try {
 			azienda = modAz.doRetrieveByUsername(bean.getUsername());
 			nomeAzienda=azienda.getNome();
@@ -98,6 +101,7 @@ public class CaricaDocumentoAziendaServlet extends HttpServlet {
 					if(fileName.lastIndexOf("\\")>=0) {
 						file= new File(filePath+fileName);
 						tirocinio= model1.doRetrieveByDocument(fi.getName());
+						matricola=fi.getName().substring(0, 10);
 					}
 					else {
 						file= new File(filePath+fileName);
@@ -111,6 +115,12 @@ public class CaricaDocumentoAziendaServlet extends HttpServlet {
 			}
 				int codice=tirocinio.getCodice();
 				model1.aggiornaAzienda(nomeAzienda, codice);
+				OffertaFormativaModel modelOff= new OffertaFormativaModel();
+				String tutorEsterno=modelOff.doRetrieveByID(model.doRetrieveByMatricola(matricola).getOffertaFormativa()).getTutorEsterno();
+				
+				NotificaModel modelNot= new NotificaModel();
+				modelNot.aggiungiNotifica("L'azienda "+nomeAzienda+ " ha accettato la tua richiesta di tirocinio","AccettaA", null, null, null, nomeAzienda, matricola);
+				modelNot.aggiungiNotifica("Si necessita della sua firma per la richiesta dello studente: "+ model.doRetrieveByMatricola(matricola).getNome()+ " "+model.doRetrieveByMatricola(matricola).getCognome(),"FirmaTE", null, null, tutorEsterno, nomeAzienda, null);
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/azienda/successoCaricamentoAzienda.jsp"); 
 				dispatcher.forward(request, response);
 				return;
