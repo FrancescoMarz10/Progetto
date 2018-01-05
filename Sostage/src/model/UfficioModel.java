@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import bean.OffertaFormativaBean;
 import bean.StudenteBean;
 import bean.TutorInternoBean;
 import bean.UfficioBean;
@@ -55,43 +56,48 @@ public Collection<StudenteBean> trovaTirocinanti() throws SQLException{
 	Connection connection =null;
 	PreparedStatement preparedStatement =null;
 	
-	 Collection<StudenteBean> studenti=new ArrayList<StudenteBean>();
-	 
-	 String selectSQL="SELECT * FROM tirocinio";
+	 Collection<StudenteBean> studentiRichieste=new ArrayList<StudenteBean>();
+	 Collection<StudenteBean> studenti= new ArrayList<StudenteBean>();
+	 StudenteModel model= new StudenteModel();
+	 String selectSQL="SELECT * FROM Studente";
 	 
 	
 	 try{
-		 connection = DriverManagerConnectionPool.getConnection();
-		 preparedStatement= connection.prepareStatement(selectSQL);
-		 ResultSet rs= preparedStatement.executeQuery();
-		 
-		 while(rs.next()){
+	
 			
-			 String studente=rs.getString("Studente");
-			 
-			 selectSQL="SELECT * FROM Studente WHERE Matricola=?";
 			 connection = DriverManagerConnectionPool.getConnection();
 			 preparedStatement= connection.prepareStatement(selectSQL);
-			 preparedStatement.setString(1, studente);
+			 ResultSet rs= preparedStatement.executeQuery();
+			 
+			 while(rs.next()) {
+				 String matricola=rs.getString("Matricola");
+				 studenti.add(model.doRetrieveByMatricola(matricola));
+			 }
+			 
+		
+		
+		selectSQL="SELECT * FROM Tirocinio WHERE Studente=?";
+	 	
+		for (StudenteBean studenteBean : studenti) {
+		
+			 connection = DriverManagerConnectionPool.getConnection();
+			 preparedStatement= connection.prepareStatement(selectSQL);
+			 preparedStatement.setString(1, studenteBean.getMatricola());
 			 rs= preparedStatement.executeQuery();
 			 
 			 while(rs.next()) {
-				 StudenteBean bean= new StudenteBean();
-				 
-				 bean.setMatricola(rs.getString("Matricola"));
-				 bean.setNome(rs.getString("Nome"));
-				 bean.setCognome(rs.getString("Cognome"));
-				 bean.setUsername(rs.getString("Username"));
-				 bean.setPsw(rs.getString("Psw"));
-				 bean.setTutorInterno(rs.getString("TutorInterno"));
-				 bean.setOffertaFormativa(rs.getInt("OffertaFormativa"));
-				 
-				 
-				 studenti.add(bean);
+				 String azienda=rs.getString("Azienda");
+				 String tutorInterno=rs.getString("TutorInterno");
+				 String tutorEsterno=rs.getString("TutorEsterno");
+				 String presidente=rs.getString("Presidente");
+				
+				 if(azienda!=null && tutorInterno!=null && tutorEsterno!=null && presidente!= null) {
+					
+					 studentiRichieste.add(studenteBean);
+
+				 }
 			 }
-			 
-		 }
-		 
+		}
 	 } 
 	 finally{
 	
@@ -104,7 +110,8 @@ public Collection<StudenteBean> trovaTirocinanti() throws SQLException{
 		 }		 
 	 }
 	  
-	return studenti;
+	return studentiRichieste;
+
+	}
 	
-}
 }
