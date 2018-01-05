@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body  onload="if (confirm('Errore nel caricamento del file: Nessun file selezionato!')) {window.location.href='/Sostage/studente/RichiestaTirocinio.jsp';}">
+<body  onload="if (confirm('Errore nel caricamento del file!')) {window.location.href='/Sostage/studente/RichiestaTirocinio.jsp';}">
 
 </body>
 </html>

@@ -23,6 +23,7 @@ import bean.StudenteBean;
 import bean.TirocinioBean;
 import bean.UtenteBean;
 import model.DocumentoModel;
+import model.NotificaModel;
 import model.OffertaFormativaModel;
 import model.StudenteModel;
 import model.TirocinioModel;
@@ -45,9 +46,13 @@ public class RichiestaTirocinioServlet extends HttpServlet {
 		StudenteModel model= new StudenteModel();
 		String matricola="";
 		String nomeDoc="";
+		String nome="";
+		String cognome="";
 		try {
 				StudenteBean studente= model.doRetrieveByUsername(bean.getUsername());
 				matricola=studente.getMatricola();
+				nome=studente.getNome();
+				cognome=studente.getCognome();
 				nomeDoc=matricola+".pdf";
 		} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -115,6 +120,7 @@ public class RichiestaTirocinioServlet extends HttpServlet {
 				TirocinioBean tirocinio= new TirocinioBean();
 				TirocinioModel mod= new TirocinioModel();
 				DocumentoModel modelDoc= new DocumentoModel();
+				NotificaModel modelNot= new NotificaModel();
 				tirocinio.setMateria(offerta.getTema());
 				tirocinio.setPeriodo(array[2]);
 				tirocinio.setLuogo(offerta.getSede());
@@ -131,13 +137,18 @@ public class RichiestaTirocinioServlet extends HttpServlet {
 				model.aggiornaOffertaFormativa(offerta.getID(), matricola);
 				model.aggiornaTutorInterno(array[1], matricola);
 				
+				modelNot.aggiungiNotifica("Lo Studente "+ nome+" "+cognome+" ha effettuato una richiesta di tirocinio","Richiesta", null, null, null, offerta.getAzienda(), matricola);
+				
+				
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/studente/successoCaricamento.jsp"); 
 				dispatcher.forward(request, response);
 				return;
 			
 		}
 		catch(Exception e) {
-			out.println(e);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/studente/erroreCaricamento.jsp"); 
+			dispatcher.forward(request, response);
+			return;
 		}
 		
 		

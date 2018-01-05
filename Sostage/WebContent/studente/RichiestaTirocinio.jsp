@@ -1,4 +1,4 @@
-<%@ page import="model.OffertaFormativaModel, bean.OffertaFormativaBean, bean.TutorInternoBean,model.StudenteModel,bean.StudenteBean, bean.UtenteBean, model.TutorInternoModel,java.util.*" %> 
+<%@ page import="model.NotificaModel, bean.NotificaBean, model.OffertaFormativaModel, bean.OffertaFormativaBean, bean.TutorInternoBean,model.StudenteModel,bean.StudenteBean, bean.UtenteBean, model.TutorInternoModel,java.util.*" %> 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,9 +8,16 @@
 <link rel="icon" href="images/icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="/Sostage/style.css" type="text/css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!-- COLLEGAMENTO AL FILE JAVASCRIPT -->
+	<script type="text/javascript" src="/Sostage/script.js"></script>
+	
+	<!-- COLLEGAMENTO AL FILE CSS -->
+	<link rel="stylesheet" href="/Sostage/style.css" type="text/css">
+	
+	<!-- COLLEGAMENTO AL FILE PER L'USO DEL FONT "BOMBARDIER" -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
 <title>SOSTAGE</title>
 </head>
 <body>
@@ -20,7 +27,8 @@
 		<div id="dipinfo">
 			<a href="http://www.di-srv.unisa.it/" target="_blank"><img alt="informaticapic" id="logoInfo" src="/Sostage/images/informatica.png"></a>
 		</div>
-		
+
+
 	<form  id="logoutForm" action="/Sostage/LogoutServlet" method="post">	
 		<button type="submit" id="logout"><i class="fa fa-user-o"></i> Logout</button>
 	</form>
@@ -35,10 +43,12 @@
 		
 				<div id="info">
 					<%
-						UtenteBean bean=(UtenteBean)session.getAttribute("bean"); 
-						StudenteModel model= new StudenteModel();
-						StudenteBean studente=model.doRetrieveByUsername(bean.getUsername());
+					UtenteBean bean=(UtenteBean)session.getAttribute("bean");
+					StudenteModel model= new StudenteModel();
+					StudenteBean studente= model.doRetrieveByUsername(bean.getUsername());
+
 					%>
+
 					<img id="usericon" src="/Sostage/images/user.png" alt="superman"><h2 id="benv">Benvenuto <%=studente.getUsername()  %> !</h2>
 					<br>
 					<ul>
