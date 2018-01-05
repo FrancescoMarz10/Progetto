@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.StudenteBean;
+import bean.TirocinioBean;
 import model.DocumentoModel;
+import model.NotificaModel;
 import model.StudenteModel;
 import model.TirocinioModel;
 
@@ -33,10 +36,19 @@ public class RifiutaTirocinioPresidenteServlet extends HttpServlet {
 		StudenteModel model1= new StudenteModel();
 		DocumentoModel modelDoc= new DocumentoModel();
 		TirocinioModel model = new TirocinioModel();
+		TirocinioBean tirocinio= new TirocinioBean();
+		
 		try {
+			StudenteBean studente= model1.doRetrieveByMatricola(matricola);
+			tirocinio=model.doRetrieveByDocument(docu);
+			String nomeAzienda=tirocinio.getAzienda();
 			model.cancellaTirocinio(model.doRetrieveByDocument(docu).getCodice());
 			model1.aggiornaOffertaFormativa(-1, matricola);
 			modelDoc.deleteDoc(docu);
+
+			NotificaModel modelNot= new NotificaModel();
+			modelNot.aggiungiNotifica("Il Presidente ha rifiutato la richiesta di tirocinio di"+studente.getNome()+" "+studente.getCognome(),"RifiutaP", null, null, null, nomeAzienda, matricola);
+			
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
