@@ -8,6 +8,15 @@
     <error-code>404</error-code>
     <location>/errore404.jsp</location>
   </error-page>
+ 
+ <!-- SETTA IL PERCORSO DELLA CARTELLA FILES DI SOSTAGE NEL CAMPO PARAM-VALUE -->
+  <context-param>	
+	<description>File Upload Location </description>
+	<param-name>file_upload</param-name>
+	<param-value>C:\Users\utente\workspace\Sostage\WebContent\Files\</param-value>
+	</context-param>
+  <!-- NON MODIFICARE ALTRE IMPOSTAZIONE PER EVITARE MAL FUNZIONAMENTI DEL SITO -->
+  
   <filter>
     <filter-name>LoggedFilter</filter-name>
     <filter-class>filter.LoggedFilter</filter-class>

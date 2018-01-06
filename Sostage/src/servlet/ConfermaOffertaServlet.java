@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.xml.sax.SAXException;
+
 import bean.OffertaFormativaBean;
 import bean.UtenteBean;
 import model.AziendaModel;
@@ -40,7 +42,7 @@ public class ConfermaOffertaServlet extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 		
 		
 	}

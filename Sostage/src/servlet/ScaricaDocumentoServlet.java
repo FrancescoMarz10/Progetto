@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/ScaricaDocumentoServlet")
 public class ScaricaDocumentoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    final String  FILE_LOCATION="C:\\Users\\utente\\workspace\\Sostage\\WebContent\\Files";
+    final String  FILE_LOCATION=getServletContext().getInitParameter("file_upload");
     
     public ScaricaDocumentoServlet() {
         super();

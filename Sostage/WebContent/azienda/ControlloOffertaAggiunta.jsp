@@ -1,4 +1,4 @@
-<%@ page import="bean.AziendaBean, bean.UtenteBean, model.AziendaModel,bean.OffertaFormativaBean, model.OffertaFormativaModel" %> 
+<%@ page import="bean.NotificaBean,model.NotificaModel,java.util.*,bean.AziendaBean, bean.UtenteBean, model.AziendaModel,bean.OffertaFormativaBean, model.OffertaFormativaModel" %> 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,9 +8,16 @@
 <link rel="icon" href="/Sostage/images/icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="/Sostage/style.css" type="text/css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!-- COLLEGAMENTO AL FILE JAVASCRIPT -->
+	<script type="text/javascript" src="/Sostage/script.js"></script>
+	
+	<!-- COLLEGAMENTO AL FILE CSS -->
+	<link rel="stylesheet" href="/Sostage/style.css" type="text/css">
+	
+	<!-- COLLEGAMENTO AL FILE PER L'USO DEL FONT "BOMBARDIER" -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		
 <title>SOSTAGE</title>
 </head>
 <body>
@@ -20,6 +27,71 @@
 		<div id="dipinfo">
 			<a href="http://www.di-srv.unisa.it/" target="_blank"><img alt="informaticapic" id="logoInfo" src="/Sostage/images/informatica.png"></a>
 		</div>
+		
+		
+	<!-- NOTIFICHE -->
+		<img id="notifiche" alt="notifiche" src="/Sostage/images/notifiche.png" onclick="apriNotifiche()">
+		<%
+			UtenteBean bean=(UtenteBean)session.getAttribute("bean"); 
+			AziendaModel model= new AziendaModel();
+			AziendaBean azienda=model.doRetrieveByUsername(bean.getUsername());
+			NotificaModel modelNot = new NotificaModel(); 
+			ArrayList<NotificaBean> notifiche= modelNot.trovaNotificheAzienda(azienda.getNome());
+			int n=notifiche.size();
+		
+			if(!notifiche.isEmpty()){
+		%>	
+			<div id="numNotifiche" style="align:center;" onclick="apriNotifiche()"><%=n%></div>
+		<%	
+			}	
+		%>
+		
+		<div id="menu" style="display:none">
+			<div id="titleInfo2">Notifiche</div>
+			<hr>
+		<%	
+			if(notifiche==null || notifiche.isEmpty()){
+		%>		
+			<p>Non ci sono notifiche </p>
+		<%		
+			}else{
+		%>		
+			
+		<% 			
+					for(NotificaBean notifica: notifiche){	
+						System.out.println(notifica.getTipo());
+						if(notifica.getTipo().equals("AccettoP") || notifica.getTipo().equals("RifiutoP")){
+		%>		
+					<div>
+						<p><%=notifica.getTesto() %> </p>
+						<form action="/Sostage/azienda/EliminaNotificaAziendaServlet" method="post">
+								  <input type="hidden" value="<%=notifica.getTipo() %>" name="Tipo">
+								  <input type="hidden" value="<%=notifica.getID() %>" name="ID">
+								  <input type="submit" value="Elimina Notifica">
+						</form>
+					</div>
+		<% 				
+			
+						}else if(notifica.getTipo().equals("Richiesta")){
+		%>		
+						<a href="#"><div> 
+						
+							<p><%=notifica.getTesto() %></p>
+							<a href="/Sostage/azienda/VisualizzaNotificaAzienda.jsp?ID=<%=notifica.getID()%>"><button>Visualizza Notifica</button></a>
+							
+						</div></a>
+					
+		<% 					
+
+						}
+			
+						}
+					}
+		%>
+				
+	
+	</div>
+			
 		
 	<form  id="logoutForm" action="/Sostage/LogoutServlet" method="post">	
 		<button type="submit" id="logout"><i class="fa fa-user-o"></i> Logout</button>
@@ -37,9 +109,7 @@
 					<%
 						OffertaFormativaBean offerta=(OffertaFormativaBean)session.getAttribute("offerta");
 						OffertaFormativaModel model1= new OffertaFormativaModel();
-						UtenteBean bean=(UtenteBean)session.getAttribute("bean"); 
-						AziendaModel model= new AziendaModel();
-						AziendaBean azienda=model.doRetrieveByUsername(bean.getUsername());
+					
 					%>
 					<img id="industry" src="/Sostage/images/industry.png" alt="industry"><h2 id="benv">Benvenuto <%=azienda.getUsername()  %> !</h2>
 					<br>

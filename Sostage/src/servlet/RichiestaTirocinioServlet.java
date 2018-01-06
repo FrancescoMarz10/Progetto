@@ -63,7 +63,7 @@ public class RichiestaTirocinioServlet extends HttpServlet {
 		String filePath;
 		int maxFileSize= 5000*1024;
 		int maxMemSize=50*1024;
-		filePath="C:\\Users\\utente\\workspace\\Sostage\\WebContent\\Files\\";
+		filePath=getServletContext().getInitParameter("file_upload");
 		isMultipart=ServletFileUpload.isMultipartContent(request);
 		response.setContentType("text/html");
 		
@@ -95,10 +95,23 @@ public class RichiestaTirocinioServlet extends HttpServlet {
 					long sizeInBytes= fi.getSize();
 					
 					if(fileName.lastIndexOf("\\")>=0) {
+						String tipoFile=fileName.substring(fileName.lastIndexOf("."));
+						System.out.println(tipoFile);
+						if(!tipoFile.equals(".pdf\\")) {
+							throw new ServletException();
+						}
+						
 						file= new File(filePath+matricola+fileName.substring(fileName.lastIndexOf(".")));
 						
 					}
 					else {
+						String tipoFile=fileName.substring(fileName.lastIndexOf("."));
+						System.out.println(tipoFile);
+						if(!tipoFile.equals(".pdf\\")) {
+							throw new ServletException();
+						}
+						
+						
 						file= new File(filePath+matricola+fileName.substring(fileName.lastIndexOf(".")+1));
 					
 					}
@@ -124,11 +137,8 @@ public class RichiestaTirocinioServlet extends HttpServlet {
 				tirocinio.setMateria(offerta.getTema());
 				tirocinio.setPeriodo(array[2]);
 				tirocinio.setLuogo(offerta.getSede());
-//				tirocinio.setTutorInterno(array[1]);
-//				tirocinio.setTutorEsterno(offerta.getTutorEsterno());
 				tirocinio.setStudente(matricola);
-//				tirocinio.setAzienda(offerta.getAzienda());
-//				tirocinio.setDocumento(nomeDoc);
+
 				System.out.println(nomeDoc);
 				int codice=mod.doSave(tirocinio);
 				mod.aggiornaStudente(matricola, codice);
@@ -146,7 +156,7 @@ public class RichiestaTirocinioServlet extends HttpServlet {
 			
 		}
 		catch(Exception e) {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/studente/erroreCaricamento.jsp"); 
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/studente/ErroreCaricamento.jsp"); 
 			dispatcher.forward(request, response);
 			return;
 		}

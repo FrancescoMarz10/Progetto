@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.xml.sax.SAXException;
 
 import bean.AziendaBean;
 import bean.PresidenteBean;
@@ -63,7 +64,7 @@ public class CaricaDocumentoPresidenteServlet extends HttpServlet {
 		String filePath;
 		int maxFileSize= 5000*1024;
 		int maxMemSize=50*1024;
-		filePath="C:\\Users\\utente\\workspace\\Sostage\\WebContent\\Files\\";
+		filePath= getServletContext().getInitParameter("file_upload");
 		isMultipart=ServletFileUpload.isMultipartContent(request);
 		response.setContentType("text/html");
 		
@@ -95,11 +96,27 @@ public class CaricaDocumentoPresidenteServlet extends HttpServlet {
 					long sizeInBytes= fi.getSize();
 					
 					if(fileName.lastIndexOf("\\")>=0) {
+						String tipoFile=fileName.substring(fileName.lastIndexOf("."));
+						System.out.println(tipoFile);
+						if(!tipoFile.equals(".pdf\\")) {
+							throw new ServletException();
+						}
+						
+						
+						
 						file= new File(filePath+fileName);
 						tirocinio= model1.doRetrieveByDocument(fi.getName());
 						matricola=fi.getName().substring(0, 10);
 					}
 					else {
+						String tipoFile=fileName.substring(fileName.lastIndexOf("."));
+						System.out.println(tipoFile);
+						if(!tipoFile.equals(".pdf\\")) {
+							throw new ServletException();
+						}
+						
+						
+						
 						file= new File(filePath+fileName);
 						tirocinio= model1.doRetrieveByDocument(fi.getName());
 						matricola=fi.getName().substring(0, 10);
@@ -126,7 +143,9 @@ public class CaricaDocumentoPresidenteServlet extends HttpServlet {
 			
 		}
 		catch(Exception e) {
-			out.println(e);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/presidente/ErroreCaricamento.jsp"); 
+			dispatcher.forward(request, response);
+			return;
 		}
 	}
 

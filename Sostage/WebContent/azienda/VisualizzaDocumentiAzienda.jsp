@@ -28,7 +28,70 @@
 			<a href="http://www.di-srv.unisa.it/" target="_blank"><img alt="informaticapic" id="logoInfo" src="/Sostage/images/informatica.png"></a>
 		</div>
 	
+		<!-- NOTIFICHE -->
+		<img id="notifiche" alt="notifiche" src="/Sostage/images/notifiche.png" onclick="apriNotifiche()">
+		<%
+			UtenteBean bean=(UtenteBean)session.getAttribute("bean"); 
+			AziendaModel model= new AziendaModel();
+			AziendaBean azienda=model.doRetrieveByUsername(bean.getUsername());
+			NotificaModel modelNot = new NotificaModel(); 
+			ArrayList<NotificaBean> notifiche= modelNot.trovaNotificheAzienda(azienda.getNome());
+			int n=notifiche.size();
 		
+			if(!notifiche.isEmpty()){
+		%>	
+			<div id="numNotifiche" style="align:center;" onclick="apriNotifiche()"><%=n%></div>
+		<%	
+			}	
+		%>
+		
+		<div id="menu" style="display:none">
+			<div id="titleInfo2">Notifiche</div>
+			<hr>
+		<%	
+			if(notifiche==null || notifiche.isEmpty()){
+		%>		
+			<p>Non ci sono notifiche </p>
+		<%		
+			}else{
+		%>		
+			
+		<% 			
+					for(NotificaBean notifica: notifiche){	
+						System.out.println(notifica.getTipo());
+						if(notifica.getTipo().equals("AccettoP") || notifica.getTipo().equals("RifiutoP")){
+		%>		
+					<div>
+						<p><%=notifica.getTesto() %> </p>
+						<form action="/Sostage/azienda/EliminaNotificaAziendaServlet" method="post">
+								  <input type="hidden" value="<%=notifica.getTipo() %>" name="Tipo">
+								  <input type="hidden" value="<%=notifica.getID() %>" name="ID">
+								  <input type="submit" value="Elimina Notifica">
+						</form>
+					</div>
+		<% 				
+			
+						}else if(notifica.getTipo().equals("Richiesta")){
+		%>		
+						<a href="#"><div> 
+						
+							<p><%=notifica.getTesto() %></p>
+							<a href="/Sostage/azienda/VisualizzaNotificaAzienda.jsp?ID=<%=notifica.getID()%>"><button>Visualizza Notifica</button></a>
+							
+						</div></a>
+					
+		<% 					
+
+						}
+			
+						}
+					}
+		%>
+				
+	
+	</div>
+		
+	
 	<form  id="logoutForm" action="/Sostage/LogoutServlet" method="post">	
 		<button type="submit" id="logout"><i class="fa fa-user-o"></i> Logout</button>
 	</form>
@@ -41,12 +104,6 @@
 	
 	<div class="container">
 			<div id="info">
-			<%
-			<%
-			UtenteBean bean=(UtenteBean)session.getAttribute("bean"); 
-			AziendaModel model= new AziendaModel();
-			AziendaBean azienda=model.doRetrieveByUsername(bean.getUsername());
-			%>
 					
 					<img id="industry" src="/Sostage/images/industry.png" alt="industry"><h2 id="benv">Benvenuto <%=azienda.getUsername()  %> !</h2>
 					<br>

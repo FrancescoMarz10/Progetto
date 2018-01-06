@@ -1,5 +1,6 @@
 package model;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+
+import org.xml.sax.SAXException;
 
 import bean.AziendaBean;
 import bean.OffertaFormativaBean;
@@ -16,7 +19,7 @@ import connection.DriverManagerConnectionPool;
 public class AziendaModel {
 
 	
-	public AziendaBean doRetrieveByUsername(String username) throws SQLException{
+	public AziendaBean doRetrieveByUsername(String username) throws SQLException, IOException{
 		
 		java.sql.Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -45,7 +48,7 @@ public class AziendaModel {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 		return azienda;
@@ -56,7 +59,7 @@ public class AziendaModel {
 	
 	
 	
-	public Collection<AziendaBean> doRetrieveAll() throws SQLException {
+	public Collection<AziendaBean> doRetrieveAll() throws SQLException,  IOException {
 		Connection connection =null;
 		PreparedStatement preparedStatement =null;
 		
@@ -97,7 +100,7 @@ public class AziendaModel {
 	}
 	
 	
-	public Collection<OffertaFormativaBean> trovaOfferteFormative(String nomeAzienda) throws SQLException{
+	public Collection<OffertaFormativaBean> trovaOfferteFormative(String nomeAzienda) throws SQLException,IOException{
 		Connection connection =null;
 		PreparedStatement preparedStatement =null;
 		
@@ -146,7 +149,7 @@ public class AziendaModel {
 	
 	
 	
-	public void aggiungiOffertaFormativa(String nome,String sede,String tema,String obiettivi,String modalitaSvolgimento,String tutorEsterno,String azienda) throws SQLException {
+	public void aggiungiOffertaFormativa(String nome,String sede,String tema,String obiettivi,String modalitaSvolgimento,String tutorEsterno,String azienda) throws SQLException, IOException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		int ID=0;
@@ -164,7 +167,7 @@ public class AziendaModel {
 			
 			
 			insertSQL = "INSERT INTO offertaFormativa(ID,Nome,Sede,Tema,Obiettivi,ModalitaSvolgimento,TutorEsterno,Azienda) VALUES (?,?,?,?,?,?,?,?)";
-			connection = DriverManagerConnectionPool.getConnection();
+			//connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			ID++;
 			preparedStatement.setInt(1, ID);
@@ -186,7 +189,7 @@ public class AziendaModel {
 			if (preparedStatement != null)
 				preparedStatement.close();
 		} finally {
-			DriverManagerConnectionPool.releaseConnection(connection);
+			 DriverManagerConnectionPool.releaseConnection(connection);
 		}
 	}
 	
@@ -195,7 +198,7 @@ public class AziendaModel {
 	
 	
 	
-	public Collection<StudenteBean> trovaTirocinanti(String nomeAzienda) throws SQLException{
+	public Collection<StudenteBean> trovaTirocinanti(String nomeAzienda) throws SQLException, IOException{
 		Connection connection =null;
 		PreparedStatement preparedStatement =null;
 		
@@ -225,7 +228,7 @@ public class AziendaModel {
 		 	
 			for (StudenteBean studenteBean : studenti) {
 			
-				 connection = DriverManagerConnectionPool.getConnection();
+				 //connection = DriverManagerConnectionPool.getConnection();
 				 preparedStatement= connection.prepareStatement(selectSQL);
 				 preparedStatement.setString(1, studenteBean.getMatricola());
 				 ResultSet rs= preparedStatement.executeQuery();
@@ -262,7 +265,7 @@ public class AziendaModel {
 	}
 
 	
-	public Collection<StudenteBean> trovaStudentiConRichiesta(String nomeAzienda) throws SQLException{
+	public Collection<StudenteBean> trovaStudentiConRichiesta(String nomeAzienda) throws SQLException,IOException{
 		Connection connection =null;
 		PreparedStatement preparedStatement =null;
 		
@@ -288,19 +291,20 @@ public class AziendaModel {
 				 
 			}
 			
-			selectSQL="SELECT Azienda FROM Tirocinio WHERE Studente=?";
+			selectSQL="SELECT Azienda,Studente FROM Tirocinio WHERE Studente=?";
 		 	
 			for (StudenteBean studenteBean : studenti) {
 			
-				 connection = DriverManagerConnectionPool.getConnection();
+				// connection = DriverManagerConnectionPool.getConnection();
 				 preparedStatement= connection.prepareStatement(selectSQL);
 				 preparedStatement.setString(1, studenteBean.getMatricola());
 				 ResultSet rs= preparedStatement.executeQuery();
 				 
 				 while(rs.next()) {
 					 String azienda=rs.getString("Azienda");
-				
-					 if(azienda==null) {
+					 String studente=rs.getString("Studente");
+					
+					 if(azienda==null && studente!=null) {
 						
 						 studentiRichieste.add(studenteBean);
 

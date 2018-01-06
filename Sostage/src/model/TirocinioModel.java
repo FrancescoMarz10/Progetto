@@ -1,5 +1,6 @@
 package model;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,40 +15,56 @@ public class TirocinioModel {
 
 	
 	
-	public int doSave(TirocinioBean tirocinio) throws SQLException {
+	public int doSave(TirocinioBean tirocinio) throws SQLException,IOException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		int codice=0;
 		String presidente="";
-		String insertSQL="SELECT MAX(Codice) FROM Tirocinio";
+		String insertSQL="SELECT * FROM Tirocinio WHERE Studente=?";
 		
 		try {
 			
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			
+			preparedStatement.setString(1, tirocinio.getStudente());
 			ResultSet rs = preparedStatement.executeQuery();
-			if(rs.next()){
+			
+			if(!rs.next()){
 				
-				codice=rs.getInt("MAX(Codice)")+1;
-	
+				insertSQL="SELECT MAX(Codice) FROM Tirocinio";
+				
+				preparedStatement = connection.prepareStatement(insertSQL);
+				
+				rs = preparedStatement.executeQuery();
+				if(rs.next()){
+					
+					codice=rs.getInt("MAX(Codice)")+1;
+		
+				}
+				
+				
+				insertSQL = "INSERT INTO tirocinio (Codice,Materia,Periodo,Luogo) VALUES (?, ?, ?, ?)";            
+				
+				//connection = DriverManagerConnectionPool.getConnection();
+				preparedStatement = connection.prepareStatement(insertSQL);
+
+				preparedStatement.setInt(1, codice);
+				preparedStatement.setString(2, tirocinio.getMateria());
+				preparedStatement.setString(3, tirocinio.getPeriodo());
+				preparedStatement.setString(4, tirocinio.getLuogo());
+				
+				
+				preparedStatement.executeUpdate();
+		
+				connection.commit();
+				
+				
+				
+			}
+			else {
+				throw new SQLException();
 			}
 			
-			
-			insertSQL = "INSERT INTO tirocinio (Codice,Materia,Periodo,Luogo) VALUES (?, ?, ?, ?)";            
-			
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
-
-			preparedStatement.setInt(1, codice);
-			preparedStatement.setString(2, tirocinio.getMateria());
-			preparedStatement.setString(3, tirocinio.getPeriodo());
-			preparedStatement.setString(4, tirocinio.getLuogo());
-			
-			
-			preparedStatement.executeUpdate();
-	
-			connection.commit();
 			
 			
 			
@@ -57,14 +74,14 @@ public class TirocinioModel {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 			return codice;
 	}
 	
 	
-	public void aggiornaStudente(String matricola, int codice) throws SQLException {
+	public void aggiornaStudente(String matricola, int codice) throws SQLException,  IOException {
 	Connection connection = null;
 	PreparedStatement preparedStatement = null;
 
@@ -91,13 +108,13 @@ public class TirocinioModel {
 			if (preparedStatement != null)
 				preparedStatement.close();
 		} finally {
-			DriverManagerConnectionPool.releaseConnection(connection);
+			 DriverManagerConnectionPool.releaseConnection(connection);
 		}
 	}
 
 }
 	
-	public void aggiornaTutorEsterno(String CF, int codice) throws SQLException {
+	public void aggiornaTutorEsterno(String CF, int codice) throws SQLException,IOException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -124,14 +141,14 @@ public class TirocinioModel {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 
 	}
 
 	
-	public void aggiornaTutorInterno(String CF, int codice) throws SQLException {
+	public void aggiornaTutorInterno(String CF, int codice) throws SQLException, IOException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -158,14 +175,14 @@ public class TirocinioModel {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 
 	}
 
 	
-	public void aggiornaDocumento(String nome, int codice) throws SQLException {
+	public void aggiornaDocumento(String nome, int codice) throws SQLException,IOException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -192,13 +209,13 @@ public class TirocinioModel {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 
 	}
 		
-	public void aggiornaAzienda(String nomeAzienda, int codice) throws SQLException {
+	public void aggiornaAzienda(String nomeAzienda, int codice) throws SQLException, IOException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -225,13 +242,13 @@ public class TirocinioModel {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 
 	}
 	
-	public void aggiornaPresidente(String CF, int codice) throws SQLException {
+	public void aggiornaPresidente(String CF, int codice) throws SQLException,  IOException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -258,14 +275,14 @@ public class TirocinioModel {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 
 	}
 		
 	
-public TirocinioBean doRetrieveByDocument(String nome) throws SQLException{
+public TirocinioBean doRetrieveByDocument(String nome) throws SQLException, IOException{
 		
 		java.sql.Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -299,13 +316,13 @@ public TirocinioBean doRetrieveByDocument(String nome) throws SQLException{
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 		return tirocinio;
 	}
 	
-public void cancellaTirocinio(int Codice) throws SQLException {
+public void cancellaTirocinio(int Codice) throws SQLException,  IOException {
 
 	java.sql.Connection connection = null;
 	PreparedStatement preparedStatement = null;
@@ -329,7 +346,7 @@ public void cancellaTirocinio(int Codice) throws SQLException {
 			if (preparedStatement != null)
 				preparedStatement.close();
 		} finally {
-			DriverManagerConnectionPool.releaseConnection(connection);
+			 DriverManagerConnectionPool.releaseConnection(connection);
 		}
 	}
 	

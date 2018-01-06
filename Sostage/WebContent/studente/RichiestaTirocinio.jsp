@@ -28,7 +28,59 @@
 			<a href="http://www.di-srv.unisa.it/" target="_blank"><img alt="informaticapic" id="logoInfo" src="/Sostage/images/informatica.png"></a>
 		</div>
 
-
+<!-- NOTIFICHE -->
+	
+		
+		<img id="notifiche" alt="notifiche" src="/Sostage/images/notifiche.png" onclick="apriNotifiche()">
+		<%
+			UtenteBean bean=(UtenteBean)session.getAttribute("bean");
+			StudenteModel model= new StudenteModel();
+			StudenteBean studente= model.doRetrieveByUsername(bean.getUsername());
+			NotificaModel modelNot = new NotificaModel(); 
+			ArrayList<NotificaBean> notifiche= modelNot.trovaNotificheStudente(studente.getMatricola());
+			int n=notifiche.size();
+		
+			if(!notifiche.isEmpty()){
+		%>	
+			<div id="numNotifiche" style="align:center;" onclick="apriNotifiche()"><%=n%></div>
+		<%	
+			}	
+		%>
+		
+		<div id="menu" style="display:none">
+			<div id="titleInfo2">Notifiche</div>
+			<hr>
+		<%	
+			if(notifiche==null || notifiche.isEmpty()){
+		%>		
+			<p>non ci sono notifiche </p>
+		<%		
+			}else{
+		%>		
+				
+		<% 			
+					for(NotificaBean notifica: notifiche){	
+						System.out.println(notifica.getTipo());
+				
+		%>		
+						
+						<div>
+							<p><%=notifica.getTesto() %> </p>
+							<form action="/Sostage/studente/EliminaNotificaStudenteServlet" method="post">
+								  <input type="hidden" value="<%=notifica.getID() %>" name="ID">
+								   <input type="hidden" value="<%=notifica.getTipo() %>" name="Tipo">
+								  <input type="submit" value="Elimina Notifica">
+							</form>
+							
+						</div>
+	
+		<%			
+						}
+					}
+		%>
+		
+		
+	</div>	
 	<form  id="logoutForm" action="/Sostage/LogoutServlet" method="post">	
 		<button type="submit" id="logout"><i class="fa fa-user-o"></i> Logout</button>
 	</form>
@@ -42,13 +94,7 @@
 	<div class="container">
 		
 				<div id="info">
-					<%
-					UtenteBean bean=(UtenteBean)session.getAttribute("bean");
-					StudenteModel model= new StudenteModel();
-					StudenteBean studente= model.doRetrieveByUsername(bean.getUsername());
-
-					%>
-
+					
 					<img id="usericon" src="/Sostage/images/user.png" alt="superman"><h2 id="benv">Benvenuto <%=studente.getUsername()  %> !</h2>
 					<br>
 					<ul>

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.xml.sax.SAXException;
+
 import bean.StudenteBean;
 import bean.TirocinioBean;
 import model.DocumentoModel;
@@ -52,7 +54,7 @@ public class RifiutaTirocinioPresidenteServlet extends HttpServlet {
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
-		}
+		} 
 		
 		RequestDispatcher dispatcher=getServletContext().getRequestDispatcher("/presidente/VisualizzaDocumentiPresidente.jsp");
 		dispatcher.forward(request, response);		

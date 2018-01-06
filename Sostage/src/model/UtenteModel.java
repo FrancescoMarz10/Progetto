@@ -1,11 +1,15 @@
 package model;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.sun.corba.se.pept.transport.Connection;
+import org.xml.sax.SAXException;
+
+
 
 import bean.StudenteBean;
 import bean.UtenteBean;
@@ -16,7 +20,7 @@ public class UtenteModel {
 
 	public String checkUser(String username, String password) throws SQLException{
 		
-		java.sql.Connection connection = null;
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		String ruolo="";
 		UtenteBean utente=new UtenteBean();
@@ -75,7 +79,7 @@ public class UtenteModel {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 		
@@ -86,9 +90,9 @@ public class UtenteModel {
 //------------------------------------------------------------------------------------------------------------
 	
 
-	public UtenteBean doRetrieveByUsername(String username) throws SQLException{
+	public UtenteBean doRetrieveByUsername(String username) throws SQLException, IOException{
 		
-		java.sql.Connection connection = null;
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		String selectSQL = "SELECT * FROM utente WHERE Username=?";
 		UtenteBean utente= new UtenteBean();
@@ -114,7 +118,7 @@ public class UtenteModel {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 		return utente;
@@ -122,8 +126,8 @@ public class UtenteModel {
 	
 //-----------------------------------------------------------------------------------------------------------------------------
 	
-	public ArrayList<String> doRetrieveAllMails() throws SQLException{
-		java.sql.Connection connection = null;
+	public ArrayList<String> doRetrieveAllMails() throws SQLException, IOException{
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		String selectSQL = "SELECT Mail FROM utente";
 		ArrayList<String> mail= new ArrayList<String>();
@@ -143,15 +147,15 @@ public class UtenteModel {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				
 			}
 		}
 		return mail;
 	}
 	
 
-	public ArrayList<UtenteBean> doRetrieveAll() throws SQLException{
-		java.sql.Connection connection = null;
+	public ArrayList<UtenteBean> doRetrieveAll() throws SQLException, IOException{
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		String selectSQL = "SELECT * FROM utente";
 		ArrayList<UtenteBean> utenti= new ArrayList<UtenteBean>();
@@ -179,7 +183,7 @@ public class UtenteModel {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 		return utenti;
@@ -187,8 +191,8 @@ public class UtenteModel {
 	
 	
 	
-	public ArrayList<String> doRetrieveDistinctRoles() throws SQLException{
-		java.sql.Connection connection = null;
+	public ArrayList<String> doRetrieveDistinctRoles() throws SQLException,IOException{
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		String selectSQL = "SELECT DISTINCT(Ruolo) FROM utente";
 		ArrayList<String> ruoli= new ArrayList<String>();
@@ -210,7 +214,7 @@ public class UtenteModel {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 		return ruoli;

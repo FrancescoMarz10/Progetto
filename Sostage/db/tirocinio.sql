@@ -7,16 +7,16 @@ CREATE TABLE IF NOT EXISTS Gestore(
 CF CHAR(16) NOT NULL,
 Nome VARCHAR(50) NOT NULL,
 Cognome VARCHAR(50) NOT NULL,
-Username VARCHAR(30) NOT NULL,
-Psw VARCHAR(30) NOT NULL,
+Username VARCHAR(20) NOT NULL,
+Psw VARCHAR(20) NOT NULL,
 Mail VARCHAR(50) NOT NULL,
 
 PRIMARY KEY (CF)
 );
 
 CREATE TABLE IF NOT EXISTS utente(
-Username CHAR(30) NOT NULL,
-Psw CHAR(30) NOT NULL,
+Username CHAR(20) NOT NULL,
+Psw CHAR(20) NOT NULL,
 Mail VARCHAR(50) NOT NULL,
 Ruolo VARCHAR(50) NOT NULL,
 Gestore CHAR(16),
@@ -40,10 +40,10 @@ FOREIGN KEY (Username, Psw) references utente(Username, Psw) on delete cascade
 
 CREATE TABLE IF NOT EXISTS tutorEsterno(
 CF CHAR(16) NOT NULL,
-Nome VARCHAR(30) NOT NULL,
-Cognome VARCHAR(30) NOT NULL,
-Username VARCHAR(30),
-Psw VARCHAR(30),
+Nome VARCHAR(50) NOT NULL,
+Cognome VARCHAR(50) NOT NULL,
+Username VARCHAR(20),
+Psw VARCHAR(20),
 
 PRIMARY KEY (CF),
 FOREIGN KEY (Username, Psw) references utente(Username, Psw) on delete cascade
@@ -51,10 +51,10 @@ FOREIGN KEY (Username, Psw) references utente(Username, Psw) on delete cascade
 
 CREATE TABLE IF NOT EXISTS tutorInterno(
 CF CHAR(16) NOT NULL,
-Nome VARCHAR(30) NOT NULL,
-Cognome VARCHAR(30) NOT NULL,
-Username VARCHAR(30),
-Psw VARCHAR(30),
+Nome VARCHAR(50) NOT NULL,
+Cognome VARCHAR(50) NOT NULL,
+Username VARCHAR(20),
+Psw VARCHAR(20),
 
 PRIMARY KEY (CF),
 FOREIGN KEY (Username, Psw) references utente(Username, Psw) on delete cascade
@@ -62,19 +62,19 @@ FOREIGN KEY (Username, Psw) references utente(Username, Psw) on delete cascade
 
 CREATE TABLE IF NOT EXISTS Presidente(
 CF CHAR(16) NOT NULL,
-Nome VARCHAR(30) NOT NULL,
-Cognome VARCHAR(30) NOT NULL,
-Username VARCHAR(30),
-Psw VARCHAR(30),
+Nome VARCHAR(50) NOT NULL,
+Cognome VARCHAR(50) NOT NULL,
+Username VARCHAR(20),
+Psw VARCHAR(20),
 
 PRIMARY KEY (CF),
 FOREIGN KEY (Username, Psw) references utente(Username, Psw) on delete cascade
 );
 
 CREATE TABLE IF NOT EXISTS ufficio(
-Sigla VARCHAR(20) NOT NULL,
-Username VARCHAR(30),
-Psw VARCHAR(30),
+Sigla VARCHAR(50) NOT NULL,
+Username VARCHAR(20),
+Psw VARCHAR(20),
 
 PRIMARY KEY (Sigla),
 FOREIGN KEY (Username, Psw) references utente(Username, Psw) on delete cascade
@@ -126,7 +126,7 @@ ID INT NOT NULL,
 Testo VARCHAR (100)NOT NULL,
 Tipo VARCHAR(50) NOT NULL,
 
-ufficio VARCHAR(20),
+ufficio VARCHAR(50),
 TutorInterno CHAR(16),
 TutorEsterno CHAR(16),
 Azienda VARCHAR(50),
@@ -179,7 +179,7 @@ INSERT INTO offertaformativa(ID,Nome,Sede,Tema,Obiettivi,ModalitaSvolgimento) VA
 LOAD DATA LOCAL INFILE 'C:/Users/utente/workspace/Sostage/db/filePopolazione/fileUfficio.txt' INTO TABLE  ufficio FIELDS terminated by ',' LINES terminated by '\n' (Sigla,Username,Psw);
 LOAD DATA LOCAL INFILE 'C:/Users/utente/workspace/Sostage/db/filePopolazione/filePresidente.txt' INTO TABLE  presidente FIELDS terminated by ',' LINES terminated by '\n' (Nome,Cognome,Username,Psw,CF);
 
-
+INSERT INTO notifica(ID,Testo,Tipo,ufficio,tutorinterno,tutoresterno,azienda,studente) VALUES(1,'saldlsa','prova',null,null,null,null,'0512103549');
 
 
 

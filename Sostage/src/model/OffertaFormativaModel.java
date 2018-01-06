@@ -1,13 +1,18 @@
 package model;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
+import org.xml.sax.SAXException;
+
+
+
 
 import bean.AziendaBean;
 import bean.OffertaFormativaBean;
@@ -18,7 +23,7 @@ import connection.DriverManagerConnectionPool;
 public class OffertaFormativaModel {
 
 	
-	public Collection<String> doRetrieveDistinctCity() throws SQLException {
+	public Collection<String> doRetrieveDistinctCity() throws SQLException, IOException {
 		Connection connection =null;
 		PreparedStatement preparedStatement =null;
 		
@@ -28,8 +33,8 @@ public class OffertaFormativaModel {
 		 
 	
 		 try{
-			 connection = (Connection) DriverManagerConnectionPool.getConnection();
-			 preparedStatement= (PreparedStatement) connection.prepareStatement(selectSQL);
+			 connection = DriverManagerConnectionPool.getConnection();
+			 preparedStatement= connection.prepareStatement(selectSQL);
 			 
 		
 			 ResultSet rs= preparedStatement.executeQuery();
@@ -59,7 +64,7 @@ public class OffertaFormativaModel {
 	}
 	
 	
-	public Collection<String> doRetrieveDistinctTopic() throws SQLException {
+	public Collection<String> doRetrieveDistinctTopic() throws SQLException,  IOException {
 		Connection connection =null;
 		PreparedStatement preparedStatement =null;
 		
@@ -69,8 +74,8 @@ public class OffertaFormativaModel {
 		 
 	
 		 try{
-			 connection = (Connection) DriverManagerConnectionPool.getConnection();
-			 preparedStatement= (PreparedStatement) connection.prepareStatement(selectSQL);
+			 connection =  DriverManagerConnectionPool.getConnection();
+			 preparedStatement= connection.prepareStatement(selectSQL);
 			 
 		
 			 ResultSet rs= preparedStatement.executeQuery();
@@ -102,7 +107,7 @@ public class OffertaFormativaModel {
 	}
 	
 	
-	public Collection<OffertaFormativaBean> trovaOfferte(String sede,String tema) throws SQLException {
+	public Collection<OffertaFormativaBean> trovaOfferte(String sede,String tema) throws SQLException,IOException {
 		Connection connection =null;
 		PreparedStatement preparedStatement =null;
 		
@@ -111,8 +116,8 @@ public class OffertaFormativaModel {
 		 String selectSQL = "SELECT * FROM offertaFormativa WHERE Sede=? AND Tema=?";
 		
 		 try{
-			 	connection = (Connection) DriverManagerConnectionPool.getConnection();
-				preparedStatement = (PreparedStatement) connection.prepareStatement(selectSQL);
+			 	connection =  DriverManagerConnectionPool.getConnection();
+				preparedStatement =connection.prepareStatement(selectSQL);
 				preparedStatement.setString(1, sede);
 				preparedStatement.setString(2, tema);
 				ResultSet rs;
@@ -151,7 +156,7 @@ public class OffertaFormativaModel {
 	
 	
 
-	public Collection<OffertaFormativaBean> trovaOfferteAzienda(String azienda) throws SQLException {
+	public Collection<OffertaFormativaBean> trovaOfferteAzienda(String azienda) throws SQLException, IOException {
 		Connection connection =null;
 		PreparedStatement preparedStatement =null;
 		
@@ -161,8 +166,8 @@ public class OffertaFormativaModel {
 		
 		
 		 try{
-			 connection = (Connection) DriverManagerConnectionPool.getConnection();
-			 preparedStatement= (PreparedStatement) connection.prepareStatement(selectSQL);
+			 connection =  DriverManagerConnectionPool.getConnection();
+			 preparedStatement= connection.prepareStatement(selectSQL);
 			 preparedStatement.setString(1, azienda);
 			 ResultSet rs= preparedStatement.executeQuery();
 			 
@@ -198,7 +203,7 @@ public class OffertaFormativaModel {
 	
 	
 	
-	public void cancellaOfferta(int ID) throws SQLException {
+	public void cancellaOfferta(int ID) throws SQLException, IOException {
 
 		java.sql.Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -207,7 +212,7 @@ public class OffertaFormativaModel {
 		
 		try {
 			connection =  DriverManagerConnectionPool.getConnection();
-			preparedStatement = (PreparedStatement) connection.prepareStatement(selectSQL);
+			preparedStatement =  connection.prepareStatement(selectSQL);
 			
 			preparedStatement.setInt(1, ID);
 	
@@ -222,14 +227,14 @@ public class OffertaFormativaModel {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 		
 		
 	}
 	
-public Collection<OffertaFormativaBean> doRetrieveAll() throws SQLException {
+public Collection<OffertaFormativaBean> doRetrieveAll() throws SQLException, IOException {
 		Connection connection =null;
 		PreparedStatement preparedStatement =null;
 		
@@ -239,8 +244,8 @@ public Collection<OffertaFormativaBean> doRetrieveAll() throws SQLException {
 		 
 		
 		 try{
-			 connection = (Connection) DriverManagerConnectionPool.getConnection();
-			 preparedStatement= (PreparedStatement) connection.prepareStatement(selectSQL);
+			 connection =  DriverManagerConnectionPool.getConnection();
+			 preparedStatement= connection.prepareStatement(selectSQL);
 			
 			 ResultSet rs= preparedStatement.executeQuery();
 			 
@@ -277,7 +282,7 @@ public Collection<OffertaFormativaBean> doRetrieveAll() throws SQLException {
 		return offerte;
 	}
 
-public OffertaFormativaBean doRetrieveByID(int ID) throws SQLException{
+public OffertaFormativaBean doRetrieveByID(int ID) throws SQLException, IOException{
 	
 	java.sql.Connection connection = null;
 	PreparedStatement preparedStatement = null;
@@ -286,7 +291,7 @@ public OffertaFormativaBean doRetrieveByID(int ID) throws SQLException{
 	
 	try {
 		connection =  DriverManagerConnectionPool.getConnection();
-		preparedStatement = (PreparedStatement) connection.prepareStatement(selectSQL);
+		preparedStatement =  connection.prepareStatement(selectSQL);
 		
 		preparedStatement.setInt(1, ID);
 
@@ -311,7 +316,7 @@ public OffertaFormativaBean doRetrieveByID(int ID) throws SQLException{
 			if (preparedStatement != null)
 				preparedStatement.close();
 		} finally {
-			DriverManagerConnectionPool.releaseConnection(connection);
+			 DriverManagerConnectionPool.releaseConnection(connection);
 		}
 	}
 	return offerta;

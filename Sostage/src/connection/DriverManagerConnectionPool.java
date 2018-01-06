@@ -5,8 +5,13 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DriverManagerConnectionPool {
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
+public class DriverManagerConnectionPool{
+	private static DataSource ds;
 
 	private static List<Connection> freeDbConnections;
 
@@ -19,18 +24,37 @@ public class DriverManagerConnectionPool {
 		} 
 	}
 	
+	static {
+		try {
+			Context initCtx = new InitialContext();
+			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+
+			ds = (DataSource) envCtx.lookup("jdbc/tirocinio");
+
+		} catch (NamingException e) {
+			System.out.println("Error:" + e.getMessage());
+		}
+	}
+	
 	private static synchronized Connection createDBConnection() throws SQLException {
-		Connection newConnection = null;
-		String ip = "localhost";
-		String port = "3306";
-		String db = "tirocinio";
-		String username = "root";
-		String password = "francesco";
-
-		newConnection = DriverManager.getConnection("jdbc:mysql://"+ ip+":"+ port+"/"+db, username, password);
-
-		newConnection.setAutoCommit(false);
-		return newConnection;
+		try {
+			Connection newConnection =ds.getConnection();
+			newConnection.setAutoCommit(false);
+			System.out.println("prima");
+			return newConnection;
+		} catch (NullPointerException e) {
+			try {
+				Class.forName("com.mysql.jdbc.Driver").newInstance();
+				Connection newConnection = DriverManager.getConnection("jdbc:mysql://localhost/tirocinio?" + "user=root&password=francesco&useSSL=false");
+				newConnection.setAutoCommit(false);
+				System.out.println("seconda");
+				return newConnection;
+			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
+				ex.printStackTrace();
+			}
+		}
+		return null;
+	
 	}
 	
 	public static synchronized Connection getConnection() throws SQLException {

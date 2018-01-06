@@ -32,17 +32,17 @@
 				</div>
 				
 				
-						 <form id="reg" action="RegistrazioneServlet" method="post">
-				 <label for="matricola">Matricola</label> <br>
-				  <input id="matricola" type="text" maxlength="10" name="matricola" placeholder="enter matricola" required> 
+		<form id="reg" action="RegistrazioneServlet" method="post">
+				 <label for="nome">Name</label> <br>
+			     <input id="nome" type="text" name="nome" placeholder="enter name" required> 
 			     <br>   	
 			     <br>
 			     <label for="surname">Cognome</label> <br>
 				 <input id="surname" type="text" name="surname" placeholder="enter surname" required> 
 				 <br>
 				 <br>
-				 <label for="nome">Name</label> <br>
-			     <input id="nome" type="text" name="nome" placeholder="enter name" required> 
+				 <label for="matricola">Matricola</label> <br>
+				  <input id="matricola" type="text" maxlength="10" name="matricola" placeholder="enter matricola" required> 
 				 <br>
 				 <br>
 				  <label for="mail">Indirizzo e-mail</label> <br>
@@ -68,7 +68,7 @@
 			      %>
 			    
 			     
-			   <input id="buttonRegi" type="submit" value="REGISTRAMI"/>
+			   <input id="buttonRegi" type="submit" value="REGISTRATI"/>
 		
 		     </form>
 					

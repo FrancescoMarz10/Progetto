@@ -1,11 +1,14 @@
 package model;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+
+import org.xml.sax.SAXException;
 
 import bean.AziendaBean;
 import bean.GestoreBean;
@@ -18,7 +21,7 @@ public class StudenteModel {
 
 	
 	
-	public StudenteBean doRetrieveByUsername(String username) throws SQLException{
+	public StudenteBean doRetrieveByUsername(String username) throws SQLException,IOException{
 		
 		java.sql.Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -49,7 +52,7 @@ public class StudenteModel {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 		return utente;
@@ -57,7 +60,7 @@ public class StudenteModel {
 	
 	/*____________________________________________________________________________________________________________*/
 	
-	public void doSave(StudenteBean studente, String mail) throws SQLException {
+	public void doSave(StudenteBean studente, String mail) throws SQLException,  IOException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		UtenteBean bean = new UtenteBean();
@@ -79,7 +82,7 @@ public class StudenteModel {
 			
 			insertSQL = "INSERT INTO utente (Username, Psw, Mail, Ruolo, Gestore) VALUES (?, ?, ?, ?, ?)";            
 			
-			connection = DriverManagerConnectionPool.getConnection();
+			//connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 
 			preparedStatement.setString(1, studente.getUsername());
@@ -115,7 +118,7 @@ public class StudenteModel {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 
@@ -149,7 +152,7 @@ public class StudenteModel {
 					if (preparedStatement != null)
 						preparedStatement.close();
 				} finally {
-					DriverManagerConnectionPool.releaseConnection(connection);
+					 DriverManagerConnectionPool.releaseConnection(connection);
 				}
 			}
 		return false;
@@ -159,7 +162,7 @@ public class StudenteModel {
 	/*_____________________________________________________________________________________________________*/
 	
 	
-	public Collection<StudenteBean> doRetrieveAll() throws SQLException {
+	public Collection<StudenteBean> doRetrieveAll() throws SQLException, IOException {
 		Connection connection =null;
 		PreparedStatement preparedStatement =null;
 		
@@ -206,7 +209,7 @@ public class StudenteModel {
 	
 //__________________________________________________________________________________________________________________________________
 	
-	public void aggiornaOffertaFormativa(int ID,String matricola) throws SQLException {
+	public void aggiornaOffertaFormativa(int ID,String matricola) throws SQLException, IOException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -232,13 +235,13 @@ public class StudenteModel {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 	}
 
 	
-	public void aggiornaTutorInterno(String tutorInterno,String matricola) throws SQLException {
+	public void aggiornaTutorInterno(String tutorInterno,String matricola) throws SQLException, IOException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -263,13 +266,13 @@ public class StudenteModel {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 	}
 
 	
-public StudenteBean doRetrieveByMatricola(String matricola) throws SQLException{
+public StudenteBean doRetrieveByMatricola(String matricola) throws SQLException, IOException{
 		
 		java.sql.Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -300,7 +303,7 @@ public StudenteBean doRetrieveByMatricola(String matricola) throws SQLException{
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 		return utente;

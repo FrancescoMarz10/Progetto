@@ -1,11 +1,14 @@
 package model;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import org.xml.sax.SAXException;
 
 import bean.OffertaFormativaBean;
 import bean.StudenteBean;
@@ -16,7 +19,7 @@ import connection.DriverManagerConnectionPool;
 public class TutorInternoModel {
 	
 	
-public TutorInternoBean doRetrieveByUsername(String username) throws SQLException{
+public TutorInternoBean doRetrieveByUsername(String username) throws SQLException,  IOException{
 		
 		java.sql.Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -46,7 +49,7 @@ public TutorInternoBean doRetrieveByUsername(String username) throws SQLExceptio
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				
 			}
 		}
 		return utente;
@@ -55,50 +58,51 @@ public TutorInternoBean doRetrieveByUsername(String username) throws SQLExceptio
 
 
 
-public Collection<StudenteBean> trovaStudentiAssegnati(String tutorInterno) throws SQLException {
+public Collection<StudenteBean> trovaStudentiAssegnati(String tutorInterno) throws SQLException, IOException {
 	Connection connection =null;
 	PreparedStatement preparedStatement =null;
 	
-	 Collection<StudenteBean> studenti =new ArrayList<StudenteBean>();
-	 
-	 String selectSQL="SELECT Studente FROM tirocinio WHERE TutorInterno=?";
+	 Collection<StudenteBean> studentiRichieste=new ArrayList<StudenteBean>();
+	 Collection<StudenteBean> studenti= new ArrayList<StudenteBean>();
+	 StudenteModel model= new StudenteModel();
+	 String selectSQL="SELECT * FROM Studente";
 	 
 	
 	 try{
-		 connection = DriverManagerConnectionPool.getConnection();
-		 preparedStatement= connection.prepareStatement(selectSQL);
-		 preparedStatement.setString(1, tutorInterno);
-		 ResultSet rs= preparedStatement.executeQuery();
-		 
-		 while(rs.next()){
-			 String matricola=rs.getString("Studente");
-			 
-			 selectSQL="SELECT * FROM Studente WHERE Matricola=?";
-			 
+	
+			
 			 connection = DriverManagerConnectionPool.getConnection();
 			 preparedStatement= connection.prepareStatement(selectSQL);
+			 ResultSet rs= preparedStatement.executeQuery();
 			 
-			 preparedStatement.setString(1, matricola);
-			 rs= preparedStatement.executeQuery();
-			 
-			 while(rs.next()){
-				 StudenteBean bean= new StudenteBean();
-				 
-				 bean.setMatricola(matricola);
-				 bean.setNome(rs.getString("Nome"));
-				 bean.setCognome(rs.getString("Cognome"));
-				 bean.setUsername(rs.getString("Username"));
-				 bean.setPsw(rs.getString("Psw"));
-				 bean.setTutorInterno(rs.getString("TutorInterno"));
-				 bean.setOffertaFormativa(rs.getInt("OffertaFormativa"));
-				 
-				 studenti.add(bean);
+			 while(rs.next()) {
+				 String matricola=rs.getString("Matricola");
+				 studenti.add(model.doRetrieveByMatricola(matricola));
 			 }
 			 
-		 
-		 }
-		 
-		 
+		
+		
+		selectSQL="SELECT * FROM Tirocinio WHERE Studente=? AND TutorInterno=?";
+	 	
+		for (StudenteBean studenteBean : studenti) {
+		
+			// connection = DriverManagerConnectionPool.getConnection();
+			 preparedStatement= connection.prepareStatement(selectSQL);
+			 preparedStatement.setString(1, studenteBean.getMatricola());
+			 preparedStatement.setString(2, tutorInterno);
+			 rs= preparedStatement.executeQuery();
+			 
+			 while(rs.next()) {
+				 String azienda=rs.getString("Azienda");
+				 String tutorEsterno= rs.getString("TutorEsterno");
+				
+				 if(azienda!=null && tutorEsterno!=null) {
+					
+					 studentiRichieste.add(studenteBean);
+
+				 }
+			 }
+		}
 	 } 
 	 finally{
 	
@@ -111,10 +115,11 @@ public Collection<StudenteBean> trovaStudentiAssegnati(String tutorInterno) thro
 		 }		 
 	 }
 	  
-	return studenti;
+	return studentiRichieste;
+
 }
 
-public Collection<TutorInternoBean> doRetrieveAll() throws SQLException {
+public Collection<TutorInternoBean> doRetrieveAll() throws SQLException,  IOException {
 	Connection connection =null;
 	PreparedStatement preparedStatement =null;
 	
@@ -157,7 +162,7 @@ public Collection<TutorInternoBean> doRetrieveAll() throws SQLException {
 }
 
 
-public Collection<StudenteBean> trovaStudentiConRichiesta(String CF) throws SQLException{
+public Collection<StudenteBean> trovaStudentiConRichiesta(String CF) throws SQLException,  IOException{
 	Connection connection =null;
 	PreparedStatement preparedStatement =null;
 	
@@ -180,19 +185,20 @@ public Collection<StudenteBean> trovaStudentiConRichiesta(String CF) throws SQLE
 			 }
 
 		
-		selectSQL="SELECT TutorInterno FROM Tirocinio WHERE Studente=?";
+		selectSQL="SELECT TutorInterno,TutorEsterno FROM Tirocinio WHERE Studente=?";
 	 	
 		for (StudenteBean studenteBean : studenti) {
 		
-			 connection = DriverManagerConnectionPool.getConnection();
+			// connection = DriverManagerConnectionPool.getConnection();
 			 preparedStatement= connection.prepareStatement(selectSQL);
 			 preparedStatement.setString(1, studenteBean.getMatricola());
 			 rs= preparedStatement.executeQuery();
 			 
 			 while(rs.next()) {
 				 String tutorInterno=rs.getString("TutorInterno");
-			
-				 if(tutorInterno==null) {
+				 String tutorEsterno=rs.getString("TutorEsterno");
+				
+				 if(tutorInterno==null && tutorEsterno!=null) {
 					
 					 studentiRichieste.add(studenteBean);
 

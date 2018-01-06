@@ -26,7 +26,55 @@
 			<a href="http://www.di-srv.unisa.it/" target="_blank"><img alt="informaticapic" id="logoInfo" src="/Sostage/images/informatica.png"></a>
 		</div>
 	
-	
+	<!-- NOTIFICHE -->
+		<img id="notifiche" alt="notifiche" src="/Sostage/images/notifiche.png" onclick="apriNotifiche()">
+		<%
+
+			UtenteBean bean=(UtenteBean)session.getAttribute("bean"); 
+			UfficioModel model= new UfficioModel();
+			UfficioBean ufficio=model.doRetrieveByUsername(bean.getUsername());
+			NotificaModel modelNot = new NotificaModel(); 
+			ArrayList<NotificaBean> notifiche= modelNot.trovaNotificheUfficio(ufficio.getSigla());
+			int n=notifiche.size();
+		
+			if(!notifiche.isEmpty()){
+		%>	
+			<div id="numNotifiche" style="align:center;" onclick="apriNotifiche()"><%=n%></div>
+		<%	
+			}	
+		%>
+		
+		<div id="menu" style="display:none">
+			<div id="titleInfo2">Notifiche</div>
+			<hr>
+		<%	
+			if(notifiche==null || notifiche.isEmpty()){
+		%>		
+			<p>Non ci sono notifiche </p>
+		<%		
+			}else{
+		%>		
+			
+		<% 			
+					for(NotificaBean notifica: notifiche){	
+						if(notifica.getTipo().equals("RichiestaUfficio")){
+		%>		
+						<div> 
+						
+							<p><%=notifica.getTesto() %></p>
+							<a href="/Sostage/ufficio/VisualizzaNotificaUfficio.jsp?ID=<%=notifica.getID()%>"><button>Visualizza Notifica</button></a>
+							
+						</div>
+					
+		<% 					
+
+						}
+			
+						}
+					}
+		%>
+				
+	</div>
 		
 	<form  id="logoutForm" action="/Sostage/LogoutServlet" method="post">	
 		<button type="submit" id="logout"><i class="fa fa-user-o"></i> Logout</button>
@@ -40,11 +88,6 @@
 	
 	<div class="container">
 			<div id="info">
-					<%
-					UtenteBean bean=(UtenteBean)session.getAttribute("bean"); 
-					UfficioModel model= new UfficioModel();
-					UfficioBean ufficio=model.doRetrieveByUsername(bean.getUsername());
-					%>
 					
 					<img id="usericon" src="/Sostage/images/user.png" alt="superman"><h2 id="benv">Benvenuto <%=ufficio.getUsername()  %> !</h2>
 					<br>

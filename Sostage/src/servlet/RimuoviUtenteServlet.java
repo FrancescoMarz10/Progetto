@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.xml.sax.SAXException;
+
 import bean.UtenteBean;
 import model.GestoreModel;
 import model.UtenteModel;
@@ -35,7 +37,7 @@ public class RimuoviUtenteServlet extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 		
 		RequestDispatcher dispatcher= getServletContext().getRequestDispatcher("/admin/RimuoviUtente.jsp");
 		dispatcher.forward(request, response);

@@ -61,7 +61,7 @@
 						      %>
 						    
 						     
-						   <input id="buttonAggiungiUtente" type="submit" value="Aggiungi Utente"/>
+						   <input id="buttonAggiungiUtente" type="submit" value="Aggiungi"/>
 					
 					     </form>
 								
@@ -109,7 +109,7 @@
 						      %>
 						    
 						     
-						   <input id="buttonAggiungiUtente" type="submit" value="Aggiungi Utente"/>
+						   <input id="buttonAggiungiUtente" type="submit" value="Aggiungi"/>
 					
 					     </form>
 			
@@ -147,7 +147,7 @@
 						      %>
 						    
 						     
-						   <input id="buttonAggiungiUtente" type="submit" value="Aggiungi Utente"/>
+						   <input id="buttonAggiungiUtente" type="submit" value="Aggiungi"/>
 					
 					     </form>
 						 <% 

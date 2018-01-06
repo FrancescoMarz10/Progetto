@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.xml.sax.SAXException;
+
 import bean.StudenteBean;
 import model.StudenteModel;
 import model.UtenteModel;
@@ -204,7 +206,7 @@ public class RegistrazioneServlet extends HttpServlet {
 			} catch (SQLException e) {
 				
 				e.printStackTrace();
-			}	
+			} 
 		}
 		else{
 			RequestDispatcher dispatcher=getServletContext().getRequestDispatcher("/FailRegistrazione.jsp");

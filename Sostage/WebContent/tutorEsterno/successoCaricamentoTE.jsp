@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>SOSTAGE</title>
 </head>
-<body onload="if (confirm('File Caricato Correttamente!')) {window.location.href='/Sostage/presidente/HomePresidente.jsp';}">
+<body onload="if (confirm('File Caricato Correttamente!')) {window.location.href='/Sostage/tutorEsterno/HomeTutorEsterno.jsp';}">
 
 </body>
 </html>

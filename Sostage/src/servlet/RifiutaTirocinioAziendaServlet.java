@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.xml.sax.SAXException;
+
 import bean.AziendaBean;
 import bean.UtenteBean;
 import model.AziendaModel;
@@ -40,7 +42,7 @@ public class RifiutaTirocinioAziendaServlet extends HttpServlet {
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		} 
 		String matricola=request.getParameter("studente");
 		String docu=matricola+".pdf";
 		StudenteModel model1= new StudenteModel();
@@ -56,7 +58,6 @@ public class RifiutaTirocinioAziendaServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		RequestDispatcher dispatcher=getServletContext().getRequestDispatcher("/azienda/VisualizzaDocumentiAzienda.jsp");
 		dispatcher.forward(request, response);		
 	}

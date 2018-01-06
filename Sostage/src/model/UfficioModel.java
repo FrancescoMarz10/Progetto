@@ -1,11 +1,14 @@
 package model;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import org.xml.sax.SAXException;
 
 import bean.OffertaFormativaBean;
 import bean.StudenteBean;
@@ -16,7 +19,7 @@ import connection.DriverManagerConnectionPool;
 public class UfficioModel {
 
 	
-public UfficioBean doRetrieveByUsername(String username) throws SQLException{
+public UfficioBean doRetrieveByUsername(String username) throws SQLException,IOException{
 		
 		java.sql.Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -44,7 +47,7 @@ public UfficioBean doRetrieveByUsername(String username) throws SQLException{
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 		return utente;
@@ -52,7 +55,7 @@ public UfficioBean doRetrieveByUsername(String username) throws SQLException{
 	
 
 
-public Collection<StudenteBean> trovaTirocinanti() throws SQLException{
+public Collection<StudenteBean> trovaTirocinanti() throws SQLException,  IOException{
 	Connection connection =null;
 	PreparedStatement preparedStatement =null;
 	
@@ -80,7 +83,7 @@ public Collection<StudenteBean> trovaTirocinanti() throws SQLException{
 	 	
 		for (StudenteBean studenteBean : studenti) {
 		
-			 connection = DriverManagerConnectionPool.getConnection();
+			// connection = DriverManagerConnectionPool.getConnection();
 			 preparedStatement= connection.prepareStatement(selectSQL);
 			 preparedStatement.setString(1, studenteBean.getMatricola());
 			 rs= preparedStatement.executeQuery();

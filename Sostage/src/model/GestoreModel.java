@@ -1,9 +1,12 @@
 package model;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import org.xml.sax.SAXException;
 
 import bean.GestoreBean;
 import bean.OffertaFormativaBean;
@@ -13,7 +16,7 @@ import connection.DriverManagerConnectionPool;
 public class GestoreModel {
 		
 	
-		public GestoreBean doRetrieveByUsername(String username) throws SQLException{
+		public GestoreBean doRetrieveByUsername(String username) throws SQLException,  IOException{
 			
 			java.sql.Connection connection = null;
 			PreparedStatement preparedStatement = null;
@@ -43,7 +46,7 @@ public class GestoreModel {
 					if (preparedStatement != null)
 						preparedStatement.close();
 				} finally {
-					DriverManagerConnectionPool.releaseConnection(connection);
+					 DriverManagerConnectionPool.releaseConnection(connection);
 				}
 			}
 			return gestore;
@@ -51,7 +54,7 @@ public class GestoreModel {
 	
 //_________________________________________________________________________________________
 		
-		public void deleteUser(UtenteBean bean) throws SQLException {
+		public void deleteUser(UtenteBean bean) throws SQLException,  IOException {
 
 			java.sql.Connection connection = null;
 			PreparedStatement preparedStatement = null;
@@ -76,7 +79,7 @@ public class GestoreModel {
 					if (preparedStatement != null)
 						preparedStatement.close();
 				} finally {
-					DriverManagerConnectionPool.releaseConnection(connection);
+					 DriverManagerConnectionPool.releaseConnection(connection);
 				}
 			}
 			
@@ -91,7 +94,7 @@ public class GestoreModel {
 //_________________________________________________________________________________________
 		
 		
-		public void aggiungiAzienda(String gestore,String nome,String mail,String sede, String nomeResponsabile, String username, String psw) throws SQLException {
+		public void aggiungiAzienda(String gestore,String nome,String mail,String sede, String nomeResponsabile, String username, String psw) throws SQLException,IOException {
 			Connection connection = null;
 			PreparedStatement preparedStatement = null;
 			String insertSQL = "INSERT INTO utente(Username,Psw,Mail,Ruolo,Gestore) VALUES (?,?,?,?,?)";
@@ -128,7 +131,7 @@ public class GestoreModel {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 		
@@ -137,7 +140,7 @@ public class GestoreModel {
 		
 //_________________________________________________________________________________________
 		
-			public void aggiungiTutorInterno(String gestore,String CF,String nome,String cognome,String mail, String username, String psw) throws SQLException {
+			public void aggiungiTutorInterno(String gestore,String CF,String nome,String cognome,String mail, String username, String psw) throws SQLException, IOException {
 					Connection connection = null;
 					PreparedStatement preparedStatement = null;
 					String insertSQL = "INSERT INTO utente(Username,Psw,Mail,Ruolo,Gestore) VALUES (?,?,?,?,?)";
@@ -174,7 +177,7 @@ public class GestoreModel {
 						if (preparedStatement != null)
 							preparedStatement.close();
 					} finally {
-						DriverManagerConnectionPool.releaseConnection(connection);
+						 DriverManagerConnectionPool.releaseConnection(connection);
 					}
 				}
 				
@@ -183,7 +186,7 @@ public class GestoreModel {
 //_________________________________________________________________________________________
 				
 				
-		public void aggiungiTutorEsterno(String gestore,String CF,String nome,String cognome,String mail, String username, String psw) throws SQLException {
+		public void aggiungiTutorEsterno(String gestore,String CF,String nome,String cognome,String mail, String username, String psw) throws SQLException, IOException {
 					Connection connection = null;
 					PreparedStatement preparedStatement = null;
 					String insertSQL = "INSERT INTO utente(Username,Psw,Mail,Ruolo,Gestore) VALUES (?,?,?,?,?)";
@@ -220,7 +223,7 @@ public class GestoreModel {
 						if (preparedStatement != null)
 							preparedStatement.close();
 					} finally {
-						DriverManagerConnectionPool.releaseConnection(connection);
+						 DriverManagerConnectionPool.releaseConnection(connection);
 					}
 				}
 				
@@ -228,7 +231,7 @@ public class GestoreModel {
 
 //_________________________________________________________________________________________
 		
-		public void aggiungiPresidente(String gestore,String CF,String nome,String cognome,String mail, String username, String psw) throws SQLException {
+		public void aggiungiPresidente(String gestore,String CF,String nome,String cognome,String mail, String username, String psw) throws SQLException, IOException {
 				Connection connection = null;
 				PreparedStatement preparedStatement = null;
 				String insertSQL = "INSERT INTO utente(Username,Psw,Mail,Ruolo,Gestore) VALUES (?,?,?,?,?)";
@@ -265,7 +268,7 @@ public class GestoreModel {
 					if (preparedStatement != null)
 						preparedStatement.close();
 				} finally {
-					DriverManagerConnectionPool.releaseConnection(connection);
+					 DriverManagerConnectionPool.releaseConnection(connection);
 				}
 			}
 			
@@ -273,7 +276,7 @@ public class GestoreModel {
 		
 //_________________________________________________________________________________________
 		
-				public void aggiungiUfficio(String gestore,String sigla,String mail, String username, String psw) throws SQLException {
+				public void aggiungiUfficio(String gestore,String sigla,String mail, String username, String psw) throws SQLException, IOException {
 						Connection connection = null;
 						PreparedStatement preparedStatement = null;
 						String insertSQL = "INSERT INTO utente(Username,Psw,Mail,Ruolo,Gestore) VALUES (?,?,?,?,?)";
@@ -308,7 +311,7 @@ public class GestoreModel {
 							if (preparedStatement != null)
 								preparedStatement.close();
 						} finally {
-							DriverManagerConnectionPool.releaseConnection(connection);
+							 DriverManagerConnectionPool.releaseConnection(connection);
 						}
 					}
 					

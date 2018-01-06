@@ -1,4 +1,4 @@
-<%@ page import="model.AziendaModel,bean.OffertaFormativaBean, model.OffertaFormativaModel, java.util.*, bean.UtenteBean,  model.AziendaModel" %> 
+<%@ page import="bean.AziendaBean, model.NotificaModel, bean.NotificaBean, model.AziendaModel,bean.OffertaFormativaBean, model.OffertaFormativaModel, java.util.*, bean.UtenteBean,  model.AziendaModel" %> 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,9 +8,16 @@
 <link rel="icon" href="images/icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="/Sostage/style.css" type="text/css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!-- COLLEGAMENTO AL FILE JAVASCRIPT -->
+	<script type="text/javascript" src="/Sostage/script.js"></script>
+	
+	<!-- COLLEGAMENTO AL FILE CSS -->
+	<link rel="stylesheet" href="/Sostage/style.css" type="text/css">
+	
+	<!-- COLLEGAMENTO AL FILE PER L'USO DEL FONT "BOMBARDIER" -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <title>SOSTAGE</title>
 </head>
 <body>
@@ -20,6 +27,70 @@
 		<div id="dipinfo">
 			<a href="http://www.di-srv.unisa.it/" target="_blank"><img alt="informaticapic" id="logoInfo" src="/Sostage/images/informatica.png"></a>
 		</div>
+		
+		<!-- NOTIFICHE -->
+		<img id="notifiche" alt="notifiche" src="/Sostage/images/notifiche.png" onclick="apriNotifiche()">
+		<%
+			UtenteBean bean=(UtenteBean)session.getAttribute("bean"); 
+			AziendaModel model= new AziendaModel();
+			AziendaBean azienda=model.doRetrieveByUsername(bean.getUsername());
+			NotificaModel modelNot = new NotificaModel(); 
+			ArrayList<NotificaBean> notifiche= modelNot.trovaNotificheAzienda(azienda.getNome());
+			int n=notifiche.size();
+		
+			if(!notifiche.isEmpty()){
+		%>	
+			<div id="numNotifiche" style="align:center;" onclick="apriNotifiche()"><%=n%></div>
+		<%	
+			}	
+		%>
+		
+		<div id="menu" style="display:none">
+			<div id="titleInfo2">Notifiche</div>
+			<hr>
+		<%	
+			if(notifiche==null || notifiche.isEmpty()){
+		%>		
+			<p>Non ci sono notifiche </p>
+		<%		
+			}else{
+		%>		
+			
+		<% 			
+					for(NotificaBean notifica: notifiche){	
+						System.out.println(notifica.getTipo());
+						if(notifica.getTipo().equals("AccettoP") || notifica.getTipo().equals("RifiutoP")){
+		%>		
+					<div>
+						<p><%=notifica.getTesto() %> </p>
+						<form action="/Sostage/azienda/EliminaNotificaAziendaServlet" method="post">
+								  <input type="hidden" value="<%=notifica.getTipo() %>" name="Tipo">
+								  <input type="hidden" value="<%=notifica.getID() %>" name="ID">
+								  <input type="submit" value="Elimina Notifica">
+						</form>
+					</div>
+		<% 				
+			
+						}else if(notifica.getTipo().equals("Richiesta")){
+		%>		
+						<a href="#"><div> 
+						
+							<p><%=notifica.getTesto() %></p>
+							<a href="/Sostage/azienda/VisualizzaNotificaAzienda.jsp?ID=<%=notifica.getID()%>"><button>Visualizza Notifica</button></a>
+							
+						</div></a>
+					
+		<% 					
+
+						}
+			
+						}
+					}
+		%>
+				
+	
+	</div>
+			
 		
 	<form  id="logoutForm" action="/Sostage/LogoutServlet" method="post">	
 		<button type="submit" id="logout"><i class="fa fa-user-o"></i> Logout</button>
@@ -35,11 +106,9 @@
 			<%
 	
 	
-	OffertaFormativaModel model= new OffertaFormativaModel();
+	OffertaFormativaModel modelOff= new OffertaFormativaModel();
 	AziendaModel model1=new AziendaModel();
-	UtenteBean utente=(UtenteBean) request.getSession().getAttribute("bean");
-	String azienda=model1.doRetrieveByUsername(utente.getUsername()).getNome();
-	Collection<OffertaFormativaBean> offerte=(ArrayList<OffertaFormativaBean>)model.trovaOfferteAzienda(azienda);
+	Collection<OffertaFormativaBean> offerte=(ArrayList<OffertaFormativaBean>)modelOff.trovaOfferteAzienda(azienda.getNome());
 	%>
 
 		
@@ -61,18 +130,18 @@
 			if(offerte!= null && offerte.size() > 0){
 					Iterator<?> it= offerte.iterator();
 					while(it.hasNext()){
-						OffertaFormativaBean bean= (OffertaFormativaBean) it.next();
+						OffertaFormativaBean bean1= (OffertaFormativaBean) it.next();
 					%>
 						<tr>
-							<td><%= bean.getNome()%></td>
-							<td><%= bean.getSede() %></td>
-							<td><%= bean.getTema() %></td>
-							<td><%= bean.getObiettivi() %></td>
-							<td><%= bean.getModalitàSvolgimento() %></td>
-							<td><%= bean.getTutorEsterno() %></td>
+							<td><%= bean1.getNome()%></td>
+							<td><%= bean1.getSede() %></td>
+							<td><%= bean1.getTema() %></td>
+							<td><%= bean1.getObiettivi() %></td>
+							<td><%= bean1.getModalitàSvolgimento() %></td>
+							<td><%= bean1.getTutorEsterno() %></td>
 							
 							
-							<td><a href="RimuoviOffertaFormativaServlet?ID=<%=bean.getID()%>"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Red_X_Freehand.svg/2000px-Red_X_Freehand.svg.png" id="X"></a>		</tr>
+							<td><a href="RimuoviOffertaFormativaServlet?ID=<%=bean1.getID()%>"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Red_X_Freehand.svg/2000px-Red_X_Freehand.svg.png" id="X"></a>		</tr>
 						
 					<% 
 					}

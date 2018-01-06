@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.xml.sax.SAXException;
+
 import model.NotificaModel;
 import model.StudenteModel;
 
@@ -36,8 +38,7 @@ public class InviaNotificaServlet extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		} 
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ufficio/SuccessoInvioUfficio.jsp"); 
 		dispatcher.forward(request, response);

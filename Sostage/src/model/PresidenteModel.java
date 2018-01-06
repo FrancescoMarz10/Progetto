@@ -1,11 +1,14 @@
 package model;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import org.xml.sax.SAXException;
 
 import bean.OffertaFormativaBean;
 import bean.PresidenteBean;
@@ -16,7 +19,7 @@ import connection.DriverManagerConnectionPool;
 public class PresidenteModel {
 
 	
-public PresidenteBean doRetrieveByUsername(String username) throws SQLException{
+public PresidenteBean doRetrieveByUsername(String username) throws SQLException, IOException{
 		
 		java.sql.Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -45,7 +48,7 @@ public PresidenteBean doRetrieveByUsername(String username) throws SQLException{
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
+				 DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
 		return utente;
@@ -54,7 +57,7 @@ public PresidenteBean doRetrieveByUsername(String username) throws SQLException{
 
 
 
-public Collection<StudenteBean> trovaStudentiConRichiesta() throws SQLException{
+public Collection<StudenteBean> trovaStudentiConRichiesta() throws SQLException, IOException{
 	Connection connection =null;
 	PreparedStatement preparedStatement =null;
 	String matricola="";
@@ -72,8 +75,9 @@ public Collection<StudenteBean> trovaStudentiConRichiesta() throws SQLException{
 		 while(rs.next()) {
 			 matricola=rs.getString("Studente");
 			 presidente=rs.getString("Presidente");
+			 String tutorInterno=rs.getString("TutorInterno");
 			 
-			 if(presidente==null) {
+			 if(presidente==null && tutorInterno!=null) {
 				 studenti.add(model.doRetrieveByMatricola(matricola));
 			 }
 		 }

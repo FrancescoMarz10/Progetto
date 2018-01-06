@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.xml.sax.SAXException;
+
 import bean.GestoreBean;
 import model.GestoreModel;
 
@@ -324,8 +326,7 @@ public class AggiungiUtenteServlet extends HttpServlet {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			
+			} 
 			
 			
 			
@@ -474,7 +475,6 @@ public class AggiungiUtenteServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
 		else if(ruolo.equals("Tutor Esterno")) {
 			String error="";
@@ -620,7 +620,7 @@ public class AggiungiUtenteServlet extends HttpServlet {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			} 
 			
 		
 		}
@@ -729,7 +729,7 @@ public class AggiungiUtenteServlet extends HttpServlet {
 			} catch (SQLException e) {
 			
 				e.printStackTrace();
-			}
+			} 
 		}
 		
 	}
